@@ -1,0 +1,16 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3.7-management
+    container_name: rabbitmq-personal_api
+    network_mode: bridge
+    restart: unless-stopped
+    ports:
+      - 15672:15672
+      - 15671:15671
+      - 5672:5672
+      - 5671:5671
+    volumes:
+      - "./shared:/shared"
+    env_file:
+      - rabbitmq.env

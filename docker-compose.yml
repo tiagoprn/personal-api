@@ -1,0 +1,11 @@
+version: '2'
+services:
+  personal-api:
+    image: personal-api:latest
+    container_name: personal-api
+    network_mode: bridge
+    restart: unless-stopped
+    ports:
+      - 8000:8000/tcp
+    env_file:
+      - .env

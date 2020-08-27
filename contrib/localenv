@@ -1,0 +1,23 @@
+# Base
+DEBUG=True
+TESTING=True
+SECRET_KEY=changeme
+ALLOWED_HOSTS="*"
+TIME_ZONE=UTC
+LOG_VARS="asctime processName process name lineno funcName levelname message"
+
+# Database
+DB_NAME=personal_api
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=1.1.1.1
+DB_PORT=5432
+
+# Celery broker
+CELERY_BROKER_BACKEND=rabbitmq
+CELERY_LOG_LEVEL=DEBUG
+RABBITMQ_USER=user
+RABBITMQ_PASSWORD=password
+RABBITMQ_ADDRESS=1.1.1.1
+RABBITMQ_PORT=5672
+WORKER_QUEUES=personal-api-healthcheck

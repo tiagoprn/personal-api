@@ -1,0 +1,21 @@
+version: '2'
+services:
+  postgresql:
+    image: postgres:latest
+    container_name: postgres-personal_api
+    network_mode: bridge
+    restart: unless-stopped
+    ports:
+      - 5432:5432/tcp
+    volumes:
+      - "./shared:/shared"
+      - "./utils:/utils"
+      - PG_DATA_CE:/var/lib/postgresql
+      - PG_BACKUPS_CE:/backups
+    env_file:
+      - postgres.env
+volumes:
+  PG_DATA_CE:
+    driver: local
+  PG_BACKUPS_CE:
+    driver: local
