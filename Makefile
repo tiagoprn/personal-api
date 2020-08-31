@@ -16,7 +16,7 @@ clean:  ## Clean python bytecodes, cache...
 	@find . -name ".coverage" -type f | xargs rm -rf
 
 env-file:  ## Generate the .env file for local development
-	@cp -farv contrib/localenv .env
+	@cp -farv vars/localenv .env
 	@echo 'Please configure params from .env file before starting. Ask for one from your peers (may be easier ;)'
 
 migrations:  ## Create migrations
