@@ -5,8 +5,4 @@ import pytest
 
 @pytest.fixture
 def content_payload():
-    return {
-        "name": "Hal Jordan",
-        "complexity": "s",
-        "is_active": "True",
-    }
+    return {"name": "Hal Jordan", "complexity": "s", "is_active": "True"}
