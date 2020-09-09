@@ -2,6 +2,9 @@
 
 **DESCRIPTION:** An API for personal consumption
 
+This project will host several APIs that can be used for personal consumption:
+
+- URL shortener
 
 ## How to use
 
