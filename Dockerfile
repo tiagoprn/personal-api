@@ -24,10 +24,18 @@ RUN apt-get update \
  libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev python-openssl \
  libpq-dev libcurl4-openssl-dev libssl-dev tree python-pycurl \
  libgnutls28-dev procps htop inetutils-ping ncdu inetutils-telnet \
- net-tools iproute2 nmap strace vim default-libmysqlclient-dev lsof -y \
+ net-tools iproute2 nmap strace vim default-libmysqlclient-dev lsof locales -y \
  && apt-get -y autoremove \
  && rm -fr /var/lib/apt/lists/* \
  && rm -fr /var/cache/apt/archives/*
+
+# Configure locale
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 # Adding an ssl certificate
 # RUN wget https://domain/certificate.crt -O /usr/local/share/ca-certificates/certificate.crt && \
