@@ -1,4 +1,6 @@
 amqp==2.6.1
+ansible==2.9.12
+ansible-lint==4.3.2
 appdirs==1.4.4
 argon2-cffi==20.1.0
 asgiref==3.2.10
@@ -16,6 +18,8 @@ certifi==2020.6.20
 cffi==1.14.2
 chardet==3.0.4
 click==7.1.2
+colorama==0.4.3
+commonmark==0.9.1
 coreapi==2.3.3
 coreschema==0.0.4
 coverage==5.2.1
@@ -27,6 +31,7 @@ django-cors-headers==3.4.0
 django-extensions==3.0.5
 django-filter==2.3.0
 djangorestframework==3.11.1
+djangorestframework-simplejwt==4.4.0
 docutils==0.15.2
 drf-yasg==1.17.1
 entrypoints==0.3
@@ -63,6 +68,7 @@ notebook==6.1.3
 packaging==20.4
 pandocfilters==1.4.2
 parso==0.7.1
+pathspec==0.8.0
 pexpect==4.8.0
 pickleshare==0.7.5
 pluggy==0.13.1
@@ -79,6 +85,8 @@ pylint==2.5.3
 pylint-celery==0.3
 pylint-django==2.3.0
 pylint-plugin-utils==0.6
+pyls-black==0.4.6
+pyls-isort==0.1.1
 pyparsing==2.4.7
 pyrsistent==0.16.0
 pytest==6.0.1
@@ -88,11 +96,16 @@ pytest-sugar==0.9.4
 python-dateutil==2.8.1
 python-decouple==3.3
 python-json-logger==0.1.11
+python-jsonrpc-server==0.3.4
+python-language-server==0.34.1
 pytz==2020.1
+PyYAML==5.3.1
 pyzmq==19.0.2
 qtconsole==4.7.6
 QtPy==1.9.0
 requests==2.24.0
+rich==6.0.0
+rope==0.17.0
 ruamel.yaml==0.16.10
 ruamel.yaml.clib==0.2.0
 s3transfer==0.3.3
@@ -106,6 +119,8 @@ text-unidecode==1.3
 toml==0.10.1
 tornado==6.0.4
 traitlets==4.3.3
+typing-extensions==3.7.4.3
+ujson==1.35
 uritemplate==3.0.1
 urllib3==1.25.10
 vine==1.3.0
@@ -113,3 +128,4 @@ wcwidth==0.2.5
 webencodings==0.5.1
 widgetsnbextension==3.5.1
 wrapt==1.12.1
+yamllint==1.24.2
