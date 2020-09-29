@@ -26,11 +26,11 @@ coverage==5.2.1
 cryptography==3.0
 decorator==4.4.2
 defusedxml==0.6.0
-Django==3.1
+Django==3.1.1
 django-cors-headers==3.4.0
-django-extensions==3.0.5
-django-filter==2.3.0
-djangorestframework==3.11.1
+django-extensions==3.0.9
+django-filter==2.4.0
+djangorestframework==3.12.1
 djangorestframework-simplejwt==4.4.0
 docutils==0.15.2
 drf-yasg==1.17.1
@@ -89,9 +89,9 @@ pyls-black==0.4.6
 pyls-isort==0.1.1
 pyparsing==2.4.7
 pyrsistent==0.16.0
-pytest==6.0.1
+pytest==6.1.0
 pytest-cov==2.10.1
-pytest-django==3.9.0
+pytest-django==3.10.0
 pytest-sugar==0.9.4
 python-dateutil==2.8.1
 python-decouple==3.3
