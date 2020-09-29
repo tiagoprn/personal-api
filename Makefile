@@ -81,3 +81,13 @@ container-run: env-file  ## run the app docker container through docker-compose
 
 container-clean: ## stop and delete the app docker container through docker-compose
 	@docker-compose stop && docker-compose rm -f
+
+show-urls: clean  ## Show all urls available on the app
+	$(DJANGO_CMD) show_urls
+
+local-healthcheck-readiness:  ## Run curl to make sure the app/worker/scheduler is ready
+	@curl http://localhost:8000/health-check/readiness
+
+local-healthcheck-liveness:  ## Run curl to make sure the app/worker/scheduler is live
+	@curl http://localhost:8000/health-check/liveness
+

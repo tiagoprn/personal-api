@@ -1,6 +1,7 @@
 import logging
 
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -24,3 +25,11 @@ class Healthcheck(APIView):
         except BaseException:
             logger.exception('An exception occurred.')
             return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class GreetingsView(APIView):
+    permission_classes = IsAuthenticated
+
+    def get(self, request):
+        content = {'message': 'Hello there!'}
+        return Response(content)
