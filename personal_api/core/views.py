@@ -28,7 +28,7 @@ class Healthcheck(APIView):
 
 
 class GreetingsView(APIView):
-    permission_classes = IsAuthenticated
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request):
         content = {'message': 'Hello there!'}

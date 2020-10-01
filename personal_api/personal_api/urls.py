@@ -1,11 +1,11 @@
+from core import views as core_views
 from django.contrib import admin
 from django.urls import path, re_path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
+from personal_api import views as project_views
 from rest_framework import permissions
 from rest_framework_simplejwt import views as jwt_views
-
-from personal_api import views as project_views
 
 schema_view = get_schema_view(
     openapi.Info(title='Swagger API', default_version='v1'),
@@ -48,4 +48,9 @@ urlpatterns = [
         name='healthcheck_readiness',
     ),
     path('admin/', admin.site.urls),
+    path(
+        'core/greetings/',
+        core_views.GreetingsView.as_view(),
+        name='core_greetings',
+    ),
 ]
