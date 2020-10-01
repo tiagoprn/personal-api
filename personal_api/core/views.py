@@ -31,5 +31,6 @@ class GreetingsView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        content = {'message': 'Hello there!'}
+        user = request.user
+        content = {'message': f'Hello there, {user}!'}
         return Response(content)
