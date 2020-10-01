@@ -91,10 +91,10 @@ local-healthcheck-readiness:  ## Run curl to make sure the app/worker/scheduler 
 local-healthcheck-liveness:  ## Run curl to make sure the app/worker/scheduler is live
 	@curl http://localhost:8000/health-check/liveness
 
-local-get-auth-token:  ## Get the token for the endpoints that require authentication. E.g.: make local-get-auth-token username=tiago password=12345678
+local-get-access-token:  ## Get the token for the endpoints that require authentication. E.g.: make local-get-access-token username=tiago password=12345678
 	@curl -s -X POST http://localhost:8000/api/token/ -d "username=$(username)" -d "password=$(password)" | python -m json.tool | jq
 
-local-refresh-auth-token:  ## Refresh the authentication token for the endpoints that require authentication, generating a new one. E.g.: make local-refresh-auth-token refresh_token=XXXXXX
+local-refresh-access-token:  ## Refresh the authentication token for the endpoints that require authentication, generating a new one. E.g.: make local-refresh-access-token refresh_token=XXXXXX
 	@curl -s -X POST http://localhost:8000/api/token/refresh/ -d "refresh=$(refresh_token)" | python -m json.tool | jq
 
 local-test-user-token:  ## Use greetings' protected endpoint to test the authentication token. E.g.: make local-test-user-token token=XXXXXX
