@@ -3,10 +3,7 @@ from unittest import mock
 import pytest
 from rest_framework.test import APIRequestFactory
 
-from personal_api.views import (
-    HealthcheckLiveness,
-    HealthcheckReadiness,
-)
+from personal_api.views import HealthcheckLiveness, HealthcheckReadiness
 
 
 class TestHealthCheckViews:

@@ -1,7 +1,8 @@
-Django==3.1
-django-extensions==3.0.5
-django-filter==2.3.0
+Django==3.1.1
+django-extensions==3.0.9
+django-filter==2.4.0
 djangorestframework==3.11.1
+djangorestframework-simplejwt==4.4.0
 drf-yasg==1.17.1
 boto3==1.14.46
 python-decouple==3.3
@@ -11,18 +12,18 @@ PyJWT==1.7.1
 django-cors-headers==3.4.0
 cryptography==3.0
 factory-boy==3.0.1
-django-extensions==3.0.5
 gunicorn==20.0.4
 pycurl==7.43.0.5
 python-json-logger==0.1.11
 celery==4.4.7
 celery-prometheus-exporter==1.7.0
 
+
 # debugging and development
 ipdb==0.13.3
-pytest==6.0.1
+pytest==6.1.0
 pytest-cov==2.10.1
-pytest-django==3.9.0
+pytest-django==3.10.0
 pytest-sugar==0.9.4
 coverage==5.2.1
 pylint==2.5.3

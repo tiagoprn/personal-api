@@ -81,3 +81,22 @@ container-run: env-file  ## run the app docker container through docker-compose
 
 container-clean: ## stop and delete the app docker container through docker-compose
 	@docker-compose stop && docker-compose rm -f
+
+show-urls: clean  ## Show all urls available on the app
+	$(DJANGO_CMD) show_urls
+
+local-healthcheck-readiness:  ## Run curl to make sure the app/worker/scheduler is ready
+	@curl http://localhost:8000/health-check/readiness
+
+local-healthcheck-liveness:  ## Run curl to make sure the app/worker/scheduler is live
+	@curl http://localhost:8000/health-check/liveness
+
+local-get-access-token:  ## Get the token for the endpoints that require authentication. E.g.: make local-get-access-token username=tiago password=12345678
+	@curl -s -X POST http://localhost:8000/api/token/ -d "username=$(username)" -d "password=$(password)" | python -m json.tool | jq
+
+local-refresh-access-token:  ## Refresh the authentication token for the endpoints that require authentication, generating a new one. E.g.: make local-refresh-access-token refresh_token=XXXXXX
+	@curl -s -X POST http://localhost:8000/api/token/refresh/ -d "refresh=$(refresh_token)" | python -m json.tool | jq
+
+local-test-user-token:  ## Use greetings' protected endpoint to test the authentication token. E.g.: make local-test-user-token token=XXXXXX
+	@curl http://localhost:8000/core/greetings/ -H "Authorization: Bearer $(token)"
+
