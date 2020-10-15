@@ -1,8 +1,9 @@
 import factory
 import pytest
+from faker import Faker
 from rest_framework.test import APIClient
 
-from .factories import SampleModelFactory
+from core.tests.factories import URLModelFactory
 
 
 @pytest.mark.django_db
@@ -13,8 +14,17 @@ class TestViewsSample:
     def test_using_pytest_fixture_and_factory(
         self, content_payload
     ):  # pylint: disable=unused-argument
-        SampleModelFactory.create_batch(
-            60, name=factory.Sequence(lambda n: n + 1)
+
+        urls = set()
+        while len(urls) < 60:
+            fake_url = Faker().uri()
+            if len(fake_url) < 200:
+                urls.add(fake_url)
+
+        URLModelFactory.create_batch(
+            60,
+            name=factory.Sequence(lambda n: n + 1),
+            original_url=factory.Iterator(urls),
         )
         assert True
 

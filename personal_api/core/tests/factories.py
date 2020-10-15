@@ -2,9 +2,9 @@
 
 import factory
 
-from core.models import SampleModel
+from core.models import URLModel
 
 
-class SampleModelFactory(factory.django.DjangoModelFactory):
+class URLModelFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = SampleModel
+        model = URLModel

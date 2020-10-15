@@ -11,7 +11,7 @@ class URLModel(models.Model):
     name = models.CharField(unique=True, max_length=150)
     slug = AutoSlugField(populate_from='name', overwrite=True)
     original_url = models.URLField(unique=True)
-    shortened_url = models.URLField(unique=True)
+    shortened_url = models.URLField(unique=True, null=True, blank=True)
 
     # TODO: add user fk here, and a manager to only
     #       get model instances from the same user
