@@ -2,7 +2,7 @@
 
 import factory
 
-from core.models import CustomUser, URLModel
+from core.models import CustomUser, Url
 
 
 class UserModelFactory(factory.django.DjangoModelFactory):
@@ -10,6 +10,6 @@ class UserModelFactory(factory.django.DjangoModelFactory):
         model = CustomUser
 
 
-class URLModelFactory(factory.django.DjangoModelFactory):
+class UrlModelFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = URLModel
+        model = Url

@@ -7,6 +7,6 @@ def clean_url(url: str) -> str:
     return url
 
 
-def shorten_url(url: str) -> str:
+def shorten_url(url: str, clean: bool = False) -> str:
     # TODO: return the shortened URL
     return url

@@ -3,7 +3,7 @@ import pytest
 from faker import Faker
 from rest_framework.test import APIClient
 
-from core.tests.factories import URLModelFactory, UserModelFactory
+from core.tests.factories import UrlModelFactory, UserModelFactory
 
 
 @pytest.mark.django_db
@@ -23,7 +23,7 @@ class TestViewsSample:
 
         user = UserModelFactory()
 
-        URLModelFactory.create_batch(
+        UrlModelFactory.create_batch(
             60,
             user=user,
             name=factory.Sequence(lambda n: n + 1),
