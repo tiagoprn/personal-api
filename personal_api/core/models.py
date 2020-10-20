@@ -1,9 +1,16 @@
 import uuid
 
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 
 from core.services.urls import clean_url
+
+
+class CustomUser(AbstractUser):
+    def __str__(self):
+        return self.username
 
 
 class URLModel(models.Model):
@@ -12,7 +19,9 @@ class URLModel(models.Model):
     slug = AutoSlugField(populate_from='name', overwrite=True)
     original_url = models.URLField(unique=True)
     shortened_url = models.URLField(unique=True, null=True, blank=True)
-
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
     # TODO: add user fk here, and a manager to only
     #       get model instances from the same user
 

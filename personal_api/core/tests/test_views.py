@@ -3,7 +3,7 @@ import pytest
 from faker import Faker
 from rest_framework.test import APIClient
 
-from core.tests.factories import URLModelFactory
+from core.tests.factories import URLModelFactory, UserModelFactory
 
 
 @pytest.mark.django_db
@@ -21,8 +21,11 @@ class TestViewsSample:
             if len(fake_url) < 200:
                 urls.add(fake_url)
 
+        user = UserModelFactory()
+
         URLModelFactory.create_batch(
             60,
+            user=user,
             name=factory.Sequence(lambda n: n + 1),
             original_url=factory.Iterator(urls),
         )

@@ -1,6 +1,8 @@
-This is a short release description
+Adding URL model
 
-Below is a list of the technica implementations:
-- Implemented A doing X because of Y
-- Implemented B doing Y because of Z
-
+- [x] Add the URL model on models.py
+- [x] Add a custom user model
+- [ ] Test the the api token generation is working with the new custom user model
+- [ ] Add the user as a foreign key to the URL model
+- [ ] Create a manager to the URLModel so that it always gets model instances from the same user related to the authentication token
+- [ ] Implement `core.services.urls.py`

@@ -95,6 +95,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'core.CustomUser'
+
 CORS_ALLOW_METHODS = (
     # 'DELETE',
     # 'GET',
