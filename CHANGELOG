@@ -4,7 +4,7 @@ Adding URL model
 - [x] Add a custom user model
 - [x] Add the user as a foreign key to the URL model
 - [x] Test the the api token generation is working with the new custom user model
-- [ ] Write tests to validate api token generation and refresh
+- [x] Write tests to validate api token generation and refresh
 - [ ] Create a manager to `models.Url` so that it always gets model instances from a given user
 - [ ] Implement methods on `core.services.urls`
 - [ ] On `models.Url.save()`, call `core.services.urls.shorten_url`
