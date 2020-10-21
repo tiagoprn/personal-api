@@ -11,10 +11,7 @@ class TestViewsSample:
     def setup(self):
         self.client = APIClient()
 
-    def test_using_pytest_fixture_and_factory(
-        self, content_payload
-    ):  # pylint: disable=unused-argument
-
+    def test_using_pytest_fixture_and_factory(self):
         urls = set()
         while len(urls) < 60:
             fake_url = Faker().uri()

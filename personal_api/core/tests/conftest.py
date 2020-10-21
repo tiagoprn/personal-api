@@ -8,11 +8,6 @@ from core.tests.factories import UserModelFactory
 
 
 @pytest.fixture
-def content_payload():
-    return {"name": "Hal Jordan", "complexity": "s", "is_active": "True"}
-
-
-@pytest.fixture
 def fake_user():
     return UserModelFactory(
         username='hal_jordan',
