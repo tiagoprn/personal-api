@@ -27,7 +27,9 @@ def real_user():
 
 
 @pytest.fixture()
-def authenticated_api_client(real_user):
+def authenticated_api_client(
+    real_user
+):  # pylint: disable=redefined-outer-name
     client = APIClient()
     refresh = RefreshToken.for_user(real_user)
     client.credentials(HTTP_AUTHORIZATION=f'Bearer {refresh.access_token}')
