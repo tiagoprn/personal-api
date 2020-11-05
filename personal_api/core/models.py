@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django_extensions.db.fields import AutoSlugField
 
+from core.managers import UrlManager
 from core.services.urls import clean_url
 
 
@@ -26,6 +27,9 @@ class Url(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    # Customize the default manager to the one having the custom filters
+    objects = UrlManager()
 
     def __str__(self):
         return str(self.slug)
