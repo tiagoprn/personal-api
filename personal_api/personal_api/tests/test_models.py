@@ -1,5 +1,8 @@
+from datetime import datetime
+
 import pytest
 from django.contrib.auth import get_user_model
+from freezegun import freeze_time
 
 from core.models import Url
 
@@ -45,27 +48,85 @@ class TestModelManager:
             },
         ]
         urls = [
-            {'name': 'google', 'original_url': 'https://www.google.com'},
-            {'name': 'bing', 'original_url': 'https://www.bing.com'},
-            {'name': 'amazon', 'original_url': 'https://www.amazon.com'},
-            {'name': 'somesite', 'original_url': 'https://www.somesite.com'},
-            {'name': 'site1', 'original_url': 'https://www.site1.com'},
-            {'name': 'site2', 'original_url': 'https://www.site2.com'},
-            {'name': 'site3', 'original_url': 'https://www.site3.com'},
-            {'name': 'site4', 'original_url': 'https://www.site4.com'},
-            {'name': 'site5', 'original_url': 'https://www.site5.com'},
-            {'name': 'site6', 'original_url': 'https://www.site6.com'},
+            {
+                'name': 'google',
+                'original_url': 'https://www.google.com',
+                'created_at': datetime(2020, 1, 1, 8, 0, 0),
+                'updated_at': datetime(2020, 1, 1, 8, 0, 0),
+            },
+            {
+                'name': 'bing',
+                'original_url': 'https://www.bing.com',
+                'created_at': datetime(2020, 1, 3, 8, 0, 0),
+                'updated_at': datetime(2020, 1, 3, 8, 0, 0),
+            },
+            {
+                'name': 'amazon',
+                'original_url': 'https://www.amazon.com',
+                'created_at': datetime(2020, 1, 8, 8, 0, 0),
+                'updated_at': datetime(2020, 1, 8, 8, 0, 0),
+            },
+            {
+                'name': 'somesite',
+                'original_url': 'https://www.somesite.com',
+                'created_at': datetime(2020, 1, 9, 8, 0, 0),
+                'updated_at': datetime(2020, 1, 9, 8, 0, 0),
+            },
+            {
+                'name': 'site1',
+                'original_url': 'https://www.site1.com',
+                'created_at': datetime(2020, 1, 12, 8, 0, 0),
+                'updated_at': datetime(2020, 1, 12, 8, 0, 0),
+            },
+            {
+                'name': 'site2',
+                'original_url': 'https://www.site2.com',
+                'created_at': datetime(2020, 1, 15, 8, 0, 0),
+                'updated_at': datetime(2020, 1, 15, 8, 0, 0),
+            },
+            {
+                'name': 'site3',
+                'original_url': 'https://www.site3.com',
+                'created_at': datetime(2020, 1, 18, 8, 0, 0),
+                'updated_at': datetime(2020, 1, 18, 8, 0, 0),
+            },
+            {
+                'name': 'site4',
+                'original_url': 'https://www.site4.com',
+                'created_at': datetime(2020, 1, 21, 8, 0, 0),
+                'updated_at': datetime(2020, 1, 21, 8, 0, 0),
+            },
+            {
+                'name': 'site5',
+                'original_url': 'https://www.site5.com',
+                'created_at': datetime(2020, 1, 24, 8, 0, 0),
+                'updated_at': datetime(2020, 1, 24, 8, 0, 0),
+            },
+            {
+                'name': 'site6',
+                'original_url': 'https://www.site6.com',
+                'created_at': datetime(2020, 1, 25, 8, 0, 0),
+                'updated_at': datetime(2020, 1, 25, 8, 0, 0),
+            },
         ]
         return users, urls
 
     @pytest.mark.django_db
-    def test_most_recent_filter(self):
+    @pytest.mark.parametrize(
+        'days,frozen_time,url_names',
+        [(5, '2020/01/05 08:00:00', ['bing', 'google'])],
+    )
+    # TODO: add more records do parametrize above, and fix this failing test
+    def test_most_recent_filter(self, days, frozen_time, url_names):
         User = get_user_model()
         assert User.objects.count() == 2
         assert Url.objects.count() == 10
 
-        # TODO
-        # most_recent_urls = Url.objects.most_recent(days=1)
+        with freeze_time(frozen_time):
+            most_recent_urls_names = Url.objects.most_recent(
+                days=days
+            ).values_list('name', flat=True)
+            assert most_recent_urls_names == url_names
 
     def test_from_user_filter(self):
         # TODO
