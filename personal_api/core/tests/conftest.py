@@ -1,10 +1,14 @@
 # Here go your pytest fixtures, that can be used on your tests.
+import logging
+
 import pytest
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from core.models import CustomUser
 from core.tests.factories import UserModelFactory
+
+logger = logging.getLogger(__name__)
 
 
 @pytest.fixture
@@ -28,7 +32,7 @@ def real_user():
 
 @pytest.fixture()
 def authenticated_api_client(
-    real_user
+    real_user,
 ):  # pylint: disable=redefined-outer-name
     client = APIClient()
     refresh = RefreshToken.for_user(real_user)

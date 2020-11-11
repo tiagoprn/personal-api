@@ -86,6 +86,7 @@ pylint==2.5.3
 pylint-celery==0.3
 pylint-django==2.3.0
 pylint-plugin-utils==0.6
+pylint-pytest==0.3.0
 pyls-black==0.4.6
 pyls-isort==0.1.1
 pyparsing==2.4.7
