@@ -12,6 +12,22 @@ from core.models import Url
         (5, '2020/01/05 08:00:00', ['bing', 'google']),
         (10, '2020/01/10 08:00:00', ['bing', 'google', 'amazon', 'somesite']),
         (2, '2020/01/25 08:00:00', ['site5', 'site6']),
+        (
+            25,
+            '2020/01/25 08:00:00',
+            [
+                'bing',
+                'google',
+                'amazon',
+                'somesite',
+                'site1',
+                'site2',
+                'site3',
+                'site4',
+                'site5',
+                'site6',
+            ],
+        ),
     ],
 )  # pylint: disable=too-many-arguments
 def test_recently_updated_filter(
