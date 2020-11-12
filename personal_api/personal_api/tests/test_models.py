@@ -69,9 +69,7 @@ def test_most_recent_and_from_user_filters_together(
         frozen_time = most_recent_filters[username]['frozen_time']
         days = most_recent_filters[username]['days']
         with freeze_time(frozen_time):
-            urls = (
-                Url.objects.from_user(user=user)
-                .most_recent(days=days)
-                .values_list('name', flat=True)
-            )
+            urls = Url.objects.recently_updated(
+                days=days, user=user
+            ).values_list('name', flat=True)
             assert set(urls) == set(expected_user_urls[username])
