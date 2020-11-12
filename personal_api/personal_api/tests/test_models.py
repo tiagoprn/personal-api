@@ -8,9 +8,12 @@ from core.models import Url
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     'days,frozen_time,url_names',
-    [(5, '2020/01/05 08:00:00', ['bing', 'google'])],
+    [
+        (5, '2020/01/05 08:00:00', ['bing', 'google']),
+        (10, '2020/01/10 08:00:00', ['bing', 'google', 'amazon', 'somesite']),
+        (2, '2020/01/25 08:00:00', ['site5', 'site6']),
+    ],
 )  # pylint: disable=too-many-arguments
-# TODO: add more records to parametrize above
 def test_recently_updated_filter(
     setup_model_instances, days, frozen_time, url_names
 ):  # pylint: disable=unused-argument
