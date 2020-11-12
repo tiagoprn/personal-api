@@ -32,9 +32,19 @@ def test_recently_updated_filter(
 def test_from_user_filter(
     setup_model_instances
 ):  # pylint: disable=unused-argument
-    # TODO
-    # user_urls = Url.objects.from_user(user=user)
-    pass
+    User = get_user_model()
+    assert User.objects.count() == 2
+    assert Url.objects.count() == 10
+
+    usernames = ['atrocitus', 'haljordan']
+    expected_user_urls = {
+        'atrocitus': ['google', 'bing', 'amazon', 'somesite'],
+        'haljordan': ['site1', 'site2', 'site3', 'site4', 'site5', 'site6'],
+    }
+    for username in usernames:
+        user = User.objects.filter(username=username).first()
+        urls = Url.objects.from_user(user=user).values_list('name', flat=True)
+        assert set(urls) == set(expected_user_urls[username])
 
 
 @pytest.mark.django_db
