@@ -6,6 +6,6 @@ Adding URL model
 - [x] Test the the api token generation is working with the new custom user model
 - [x] Write tests to validate api token generation and refresh
 - [x] Create a manager to `models.Url` so that it can get model instances from a given user.
-- [ ] Add `tests/test_models.py` - using real model instances in this case, not the model factories - to validate the implementation. Test `most_recent` and `from_user` separately and together.
-- [ ] Implement the business methods on `core.services.urls`
+- [x] Add `tests/test_models.py` - using real model instances in this case, not the model factories - to validate the implementation. Test `most_recent` and `from_user` separately and together.
+- [DOING] Implement the business methods on `core.services.urls`
 - [ ] On `models.Url.save()`, call `core.services.urls.shorten_url`
