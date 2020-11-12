@@ -51,7 +51,27 @@ def test_from_user_filter(
 def test_most_recent_and_from_user_filters_together(
     setup_model_instances
 ):  # pylint: disable=unused-argument
-    # TODO
-    # user_most_recent_urls = Url.objects.from_user(
-    #     user=user).most_recent(days=1)
-    pass
+    User = get_user_model()
+    assert User.objects.count() == 2
+    assert Url.objects.count() == 10
+
+    usernames = ['atrocitus', 'haljordan']
+    most_recent_filters = {
+        'atrocitus': {'frozen_time': '2020/01/09 08:00:00', 'days': 5},
+        'haljordan': {'frozen_time': '2020/01/25 08:00:00', 'days': 5},
+    }
+    expected_user_urls = {
+        'atrocitus': ['amazon', 'somesite'],
+        'haljordan': ['site4', 'site5', 'site6'],
+    }
+    for username in usernames:
+        user = User.objects.filter(username=username).first()
+        frozen_time = most_recent_filters[username]['frozen_time']
+        days = most_recent_filters[username]['days']
+        with freeze_time(frozen_time):
+            urls = (
+                Url.objects.from_user(user=user)
+                .most_recent(days=days)
+                .values_list('name', flat=True)
+            )
+            assert set(urls) == set(expected_user_urls[username])
