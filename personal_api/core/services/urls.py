@@ -7,6 +7,7 @@ def clean_url(url: str) -> str:
     return url
 
 
-def shorten_url(url: str, clean: bool = False) -> str:
-    # TODO: return the shortened URL
+def shorten_url(url: str, uuid: str) -> str:
+    # TODO: return the shortened URL.
+    # Try to use something related to the django model's UUID.
     return url

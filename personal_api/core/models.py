@@ -1,3 +1,4 @@
+import logging
 import uuid
 
 from django.conf import settings
@@ -7,6 +8,8 @@ from django_extensions.db.fields import AutoSlugField
 
 from core.managers import UrlManager
 from core.services.urls import clean_url
+
+logger = logging.getLogger(__name__)
 
 
 class CustomUser(AbstractUser):
