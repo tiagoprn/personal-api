@@ -17,6 +17,7 @@ pycurl==7.43.0.5
 python-json-logger==0.1.11
 celery==4.4.7
 celery-prometheus-exporter==1.7.0
+shortuuid==1.0.1
 
 
 # debugging and development
