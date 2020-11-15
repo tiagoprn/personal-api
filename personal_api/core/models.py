@@ -23,7 +23,12 @@ class Url(models.Model):
     name = models.CharField(unique=True, max_length=150)
     slug = AutoSlugField(populate_from='name', overwrite=True)
     original_url = models.URLField(unique=True)
-    shortened_url = models.URLField(unique=True, null=True, blank=True)
+    # TODO: add tests on test_models.py to find model instances by shortened
+    # hash (exact string and partial string, with "ilike" - so that we can be
+    # able to search for the smallest hash possible)
+    shortened_hash = models.CharField(
+        unique=True, max_length=50, null=True, blank=True
+    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE
     )
