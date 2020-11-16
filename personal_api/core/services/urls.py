@@ -1,7 +1,10 @@
+import logging
 import uuid
 
 import requests
 import shortuuid
+
+logger = logging.getLogger(__name__)
 
 
 def sanitize_url(url: str) -> str:
@@ -14,7 +17,12 @@ def sanitize_url(url: str) -> str:
             f'trying to reach url={url}.'
         )
 
-    url, _ = url.split('?')
+    if '?' in url:
+        url, _ = url.split('?')
+
+    if url.endswith('/'):
+        url = url[:-1]
+
     return url
 
 
@@ -23,5 +31,5 @@ def generate_shortened_hash(uid: uuid.UUID) -> str:
 
 
 def get_domain(url: str) -> str:
-    # TODO
+    # TODO: implement
     return url

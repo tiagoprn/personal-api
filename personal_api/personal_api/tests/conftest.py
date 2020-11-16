@@ -31,11 +31,26 @@ def users_data():
 @pytest.fixture()
 def real_urls():
     return [
-        'https://programmingdigest.net/?utm_source=techleaddigest&utm_medium=email&utm_campaign=footer',
-        'https://techleaddigest.net/links/9298/redirect?subscriber_id=deac88e2-c797-4ba8-bae1-87423cd78d80&utm_medium=email',
-        'https://login.folha.com.br/assinatura/400508?utm_source=roi360&utm_medium=EDFSP&utm_campaign=Fornecedor_ROI_EDFSP',
-        'https://click.mlsend.com/link/c/YT0xNTUzNDg0MTMzNTkyNzI4NzQyJmM9bDBjNCZlPTUxOTUwNzQ5JmI9NDUzMzU5OTcyJmQ9ZTFvNGUxaA==.ZGx3fsABcnMregPCd51Z0jxi0O6KVn4fdz6KPifYCI0',
-        'https://click.mlsend.com/link/c/YT0xNTUzNDg0MTMzNTkyNzI4NzQyJmM9bDBjNCZlPTUxOTUwNzQ5JmI9NDUzMzU5OTc4JmQ9eTh1M3M1dQ==.MMQ2OkLlwVDNtTd51thXUWXt0DLzBABdvbu391cmD6Q',
+        {
+            'original': 'https://programmingdigest.net/?utm_source=techleaddigest&utm_medium=email&utm_campaign=footer',
+            'sanitized': 'https://programmingdigest.net',
+        },
+        {
+            'original': 'https://techleaddigest.net/links/9298/redirect?subscriber_id=deac88e2-c797-4ba8-bae1-87423cd78d80&utm_medium=email',
+            'sanitized': 'https://productcoalition.com/product-thinking-vs-project-thinking-380692a2d4e',
+        },
+        {
+            'original': 'https://login.folha.com.br/assinatura/400508?utm_source=roi360&utm_medium=EDFSP&utm_campaign=Fornecedor_ROI_EDFSP',
+            'sanitized': 'https://login.folha.com.br/assinatura/400508',
+        },
+        {
+            'original': 'https://click.mlsend.com/link/c/YT0xNTUzNDg0MTMzNTkyNzI4NzQyJmM9bDBjNCZlPTUxOTUwNzQ5JmI9NDUzMzU5OTcyJmQ9ZTFvNGUxaA==.ZGx3fsABcnMregPCd51Z0jxi0O6KVn4fdz6KPifYCI0',
+            'sanitized': 'https://itsfoss.com/mudita-os',
+        },
+        {
+            'original': 'https://click.mlsend.com/link/c/YT0xNTUzNDg0MTMzNTkyNzI4NzQyJmM9bDBjNCZlPTUxOTUwNzQ5JmI9NDUzMzU5OTc4JmQ9eTh1M3M1dQ==.MMQ2OkLlwVDNtTd51thXUWXt0DLzBABdvbu391cmD6Q',
+            'sanitized': 'https://itsfoss.com/linux-release-roundup',
+        },
     ]
 
 
