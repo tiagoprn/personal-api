@@ -7,7 +7,7 @@ from django.db import models
 from django_extensions.db.fields import AutoSlugField
 
 from core.managers import UrlManager
-from core.services.urls import clean_url
+from core.services.urls import get_domain
 
 logger = logging.getLogger(__name__)
 
@@ -23,6 +23,7 @@ class Url(models.Model):
     name = models.CharField(unique=True, max_length=150)
     slug = AutoSlugField(populate_from='name', overwrite=True)
     original_url = models.URLField(unique=True)
+    sanitized_url = models.URLField(unique=True, null=True, blank=True)
     # TODO: add tests on test_models.py to find model instances by shortened
     # hash (exact string and partial string, with "ilike" - so that we can be
     # able to search for the smallest hash possible)
@@ -43,5 +44,5 @@ class Url(models.Model):
         return str(self.slug)
 
     @property
-    def cleaned_url(self) -> str:
-        return clean_url(self.url)
+    def domain(self):
+        return get_domain(self.sanitized_url)
