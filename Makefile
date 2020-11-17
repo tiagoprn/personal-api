@@ -49,10 +49,13 @@ lint: clean  ## Run the pylint test
 	@pylint --rcfile=.pylintrc  personal_api/*
 
 style:	## Run isort and black auto formatting code style in the project
-	@isort -m 3 -tc -y
+	@isort -m 3 --trailing-comma --use-parentheses --honor-noqa .
 	@black -S -l 79 personal_api/.
 
 style-check:	## Run black check code style
+	@isort -v --check -m 3 --trailing-comma --use-parentheses --honor-noqa --color .
+	@echo '-----'
+	@echo 'black' | figlet
 	@black -S -t py37 -l 79 --check personal_api/.
 
 shell: clean  ## Run a django shell

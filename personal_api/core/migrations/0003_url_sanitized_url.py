@@ -5,14 +5,12 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('core', '0002_auto_20201115_1559'),
-    ]
+    dependencies = [('core', '0002_auto_20201115_1559')]
 
     operations = [
         migrations.AddField(
             model_name='url',
             name='sanitized_url',
             field=models.URLField(blank=True, null=True, unique=True),
-        ),
+        )
     ]

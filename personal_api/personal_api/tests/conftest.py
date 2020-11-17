@@ -2,8 +2,9 @@
 import logging
 from datetime import datetime
 
-import pytest
 from django.contrib.auth import get_user_model
+
+import pytest
 from freezegun import freeze_time
 
 from core.models import Url

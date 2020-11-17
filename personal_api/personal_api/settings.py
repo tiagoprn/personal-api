@@ -1,8 +1,9 @@
 import logging.config
 import os
 
-from decouple import config
 from django.utils.log import DEFAULT_LOGGING
+
+from decouple import config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

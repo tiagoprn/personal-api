@@ -8,6 +8,7 @@ from random import randint
 import django
 from django.conf import settings
 from django.db.migrations.recorder import MigrationRecorder
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView

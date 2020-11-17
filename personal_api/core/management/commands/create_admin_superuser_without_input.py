@@ -7,7 +7,7 @@ class Command(createsuperuser.Command):
     help = 'Create a superuser, and allow password to be provided'
 
     def add_arguments(self, parser):
-        super(Command, self).add_arguments(parser)
+        super().add_arguments(parser)
         parser.add_argument(
             '--password',
             dest='password',
@@ -44,7 +44,7 @@ class Command(createsuperuser.Command):
                 )
                 return
 
-        super(Command, self).handle(*args, **options)
+        super().handle(*args, **options)
 
         if password:
             user = self.UserModel._default_manager.db_manager(database).get(
