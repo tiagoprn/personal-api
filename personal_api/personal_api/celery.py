@@ -19,7 +19,6 @@ app.autodiscover_tasks()
 
 app.conf.task_serializer = 'json'
 
-# TODO: since using SQS, probably tasks functions are not allowed to return
 app.conf.result_serializer = 'json'
 
 app.conf.accept_content = ['json']

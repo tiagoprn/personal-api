@@ -25,9 +25,6 @@ class Url(models.Model):
     slug = AutoSlugField(populate_from='name', overwrite=True)
     original_url = models.URLField(unique=True)
     sanitized_url = models.URLField(unique=True, null=True, blank=True)
-    # TODO: add tests on test_models.py to find model instances by shortened
-    # hash (exact string and partial string, with "ilike" - so that we can be
-    # able to search for the smallest hash possible)
     shortened_hash = models.CharField(
         unique=True, max_length=50, null=True, blank=True
     )

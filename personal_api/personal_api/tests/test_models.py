@@ -90,3 +90,13 @@ def test_most_recent_and_from_user_filters_together(
                 days=days, user=user
             ).values_list('name', flat=True)
             assert set(urls) == set(expected_user_urls[username])
+
+
+def test_search_by_shortened_hash():
+    # scenarios: exact string and partial string, with "ilike", etc...
+    # - so that we can be able to search for the smallest hash possible
+    assert False  # TODO
+
+
+def test_get_domain_property_value():
+    assert False  # TODO

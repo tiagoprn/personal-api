@@ -1,5 +1,6 @@
 import logging
 import uuid
+from urllib.parse import urlparse
 
 import requests
 import shortuuid
@@ -31,5 +32,5 @@ def generate_shortened_hash(uid: uuid.UUID) -> str:
 
 
 def get_domain(url: str) -> str:
-    # TODO: implement
-    return url
+    parsed_url = urlparse(url)
+    return parsed_url.netloc

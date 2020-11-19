@@ -1,6 +1,7 @@
 import logging
 import uuid
 
+import pytest
 import shortuuid
 
 from core.services.urls import (
@@ -27,6 +28,14 @@ def test_generate_shortened_hash():
         assert shortuuid.decode(short_uuid) == uid
 
 
-def test_get_domain():
-    # TODO: implement
-    pass
+@pytest.mark.parametrize(
+    'url,expected_domain',
+    [
+        ('http://www.example.test/foo/bar', 'www.example.test'),
+        ('http://abc.hostname.com/somethings/anything/', 'abc.hostname.com'),
+        ('https://tiagopr.nl/content/posts', 'tiagopr.nl'),
+    ],
+)
+def test_get_domain(url, expected_domain):
+    domain = get_domain(url)
+    assert domain == expected_domain

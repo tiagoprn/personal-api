@@ -36,10 +36,10 @@ create-admin-superuser-without-input:  ## Create a django admin superuser non-in
 	$(DJANGO_CMD) create_admin_superuser_without_input --username $(username) --password $(password) --noinput --email '$(email)'
 
 test: clean  ## Run the test suite
-	py.test personal_api/ --ds=$(SETTINGS) -s
+	py.test personal_api/ --ds=$(SETTINGS) -s -vvv
 
 test-matching: clean  ## Run only tests matching pattern. e.g. make test-matching test=test_healthcheck_liveness
-	py.test personal_api/ -k $(test) --ds=$(SETTINGS) -s
+	py.test personal_api/ -k $(test) --ds=$(SETTINGS) -s -vvv
 
 coverage: clean  ## Run the test coverage report
 	@mkdir -p logs
