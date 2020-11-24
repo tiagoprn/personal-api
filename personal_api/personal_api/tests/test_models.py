@@ -92,11 +92,29 @@ def test_most_recent_and_from_user_filters_together(
             assert set(urls) == set(expected_user_urls[username])
 
 
-def test_search_by_shortened_hash():
-    # scenarios: exact string and partial string, with "ilike", etc...
+@pytest.mark.django_db
+def test_search_by_shortened_hash(
+    setup_model_instances
+):  # pylint: disable=unused-argument
+    User = get_user_model()
+    assert User.objects.count() == 2
+    assert Url.objects.count() == 10
+
+    all_hashes = {}
+    for url in Url.objects.all():
+        assert url.id
+        short_hash = url.shortened_hash
+        assert short_hash
+        all_hashes.append({short_hash: url.slug})
+
+    __import__('ipdb').set_trace()
+
+    # TODO: scenarios: exact string and partial string, with "ilike", etc...
     # - so that we can be able to search for the smallest hash possible
-    assert False  # TODO
 
 
-def test_get_domain_property_value():
+@pytest.mark.django_db
+def test_get_domain_property_value(
+    setup_model_instances
+):  # pylint: disable=unused-argument
     assert False  # TODO
