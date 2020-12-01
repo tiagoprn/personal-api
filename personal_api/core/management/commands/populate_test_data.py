@@ -14,7 +14,7 @@ class Command(BaseCommand):
         user_data = {
             'username': 'tiago',
             'password': '12345678',
-            'email': 'tiagoprn@gmail.com',
+            'email': 'tiago@example.com',
         }
         new_user = User(**user_data)
         new_user.save()
@@ -24,7 +24,7 @@ class Command(BaseCommand):
 
         Url.objects.count()
         tiago_url = Url(
-            name='bla', original_url='https://www.osnews.com', user=tiago
+            name='autotest', original_url='https://www.osnews.com', user=tiago
         )
         tiago_url.save()
 
@@ -42,3 +42,7 @@ class Command(BaseCommand):
 
         if success:
             self.stdout.write(f'SUCCESS! Object properties={vars(tiago_url)}')
+
+        # Cascadingly deletes the created user and all its Urls,
+        # including the one created here.
+        User.objects.get(id=tiago.id).delete()
