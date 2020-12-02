@@ -1,9 +1,3 @@
-"""
-IMPORTANT: Since we use Amazon SQS as our broker, it does not
-           have support to be a result backend. It is stated on
-           its' documentation.
-"""
-
 import os
 
 from celery import Celery

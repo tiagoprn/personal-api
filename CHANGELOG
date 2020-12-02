@@ -9,5 +9,5 @@ Adding URL model
 - [x] Add `tests/test_models.py` - using real model instances in this case, not the model factories - to validate the implementation. Test `most_recent` and `from_user` separately and together
 - [x] Implement the business methods on `core.services.urls`
 - [x] Add manage command to populate the database with test data
-- [ ] Run `python personal_api/manage.py populate_test_data` and fix the error where the signal is not called, until it successfully is
+- [x] Run `python personal_api/manage.py populate_test_data` and fix the error where the signal is not called, until it successfully is
 - [ ] Finish implementation of the tests marked with "TODO" (`test_models.py`).

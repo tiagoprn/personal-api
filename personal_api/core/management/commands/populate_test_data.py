@@ -7,7 +7,7 @@ from core.models import Url
 class Command(BaseCommand):
     help = 'Populate the database with a sample user and URL'
 
-    def handle(self, *args, **kwargs):
+    def handle(self, *args, **kwargs):  # pylint: disable=unused-argument
         User = get_user_model()
         User.objects.count()
 

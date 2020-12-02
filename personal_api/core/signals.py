@@ -8,22 +8,6 @@ from core.services.urls import generate_shortened_hash, sanitize_url
 logger = logging.getLogger(__name__)
 
 
-def _save_avoiding_infinite_post_save_signal_loop(instance):
-    post_save.disconnect(
-        trigger_generate_shortened_hash,
-        sender=Url,
-        dispatch_uid='trigger_generate_shortened_hash',
-    )
-
-    instance.save()
-
-    post_save.connect(
-        trigger_generate_shortened_hash,
-        sender=Url,
-        dispatch_uid='trigger_generate_shortened_hash',
-    )
-
-
 def trigger_generate_shortened_hash(
     sender, instance, created, **kwargs
 ):  # pylint: disable=unused-argument
@@ -34,8 +18,17 @@ def trigger_generate_shortened_hash(
     _save_avoiding_infinite_post_save_signal_loop(instance)
 
 
-post_save.connect(
-    trigger_generate_shortened_hash,
-    sender=Url,
-    dispatch_uid='trigger_generate_shortened_hash',
-)
+URL_POST_SAVE_PARAMS = {
+    'receiver': trigger_generate_shortened_hash,
+    'sender': Url,
+    'dispatch_uid': 'trigger_generate_shortened_hash',
+}
+
+
+def _save_avoiding_infinite_post_save_signal_loop(instance):
+    post_save.disconnect(**URL_POST_SAVE_PARAMS)
+    instance.save()
+    post_save.connect(**URL_POST_SAVE_PARAMS)
+
+
+post_save.connect(**URL_POST_SAVE_PARAMS)
