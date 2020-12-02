@@ -10,4 +10,5 @@ Adding URL model
 - [x] Implement the business methods on `core.services.urls`
 - [x] Add manage command to populate the database with test data
 - [x] Run `python personal_api/manage.py populate_test_data` and fix the error where the signal is not called, until it successfully is
+- [DOING] Fix 503 errors on failing tests
 - [ ] Finish implementation of the tests marked with "TODO" (`test_models.py`).
