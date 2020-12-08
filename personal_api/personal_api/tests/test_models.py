@@ -11,22 +11,26 @@ from core.models import Url
     'days,frozen_time,url_names',
     [
         (5, '2020/01/05 08:00:00', ['bing', 'google']),
-        (10, '2020/01/10 08:00:00', ['bing', 'google', 'amazon', 'somesite']),
-        (2, '2020/01/25 08:00:00', ['site5', 'site6']),
+        (
+            10,
+            '2020/01/10 08:00:00',
+            ['bing', 'google', 'destinationlinux', 'jupiterbroadcasting'],
+        ),
+        (2, '2020/01/25 08:00:00', ['trello', 'archlinux']),
         (
             25,
             '2020/01/25 08:00:00',
             [
                 'bing',
                 'google',
-                'amazon',
-                'somesite',
-                'site1',
-                'site2',
-                'site3',
-                'site4',
-                'site5',
-                'site6',
+                'destinationlinux',
+                'jupiterbroadcasting',
+                'github',
+                'gitlab',
+                'jira',
+                'atlassian',
+                'trello',
+                'archlinux',
             ],
         ),
     ],
@@ -55,8 +59,20 @@ def test_from_user_filter(
 
     usernames = ['atrocitus', 'haljordan']
     expected_user_urls = {
-        'atrocitus': ['google', 'bing', 'amazon', 'somesite'],
-        'haljordan': ['site1', 'site2', 'site3', 'site4', 'site5', 'site6'],
+        'atrocitus': [
+            'google',
+            'bing',
+            'destinationlinux',
+            'jupiterbroadcasting',
+        ],
+        'haljordan': [
+            'github',
+            'gitlab',
+            'jira',
+            'atlassian',
+            'trello',
+            'archlinux',
+        ],
     }
     for username in usernames:
         user = User.objects.filter(username=username).first()
@@ -78,8 +94,8 @@ def test_most_recent_and_from_user_filters_together(
         'haljordan': {'frozen_time': '2020/01/25 08:00:00', 'days': 5},
     }
     expected_user_urls = {
-        'atrocitus': ['amazon', 'somesite'],
-        'haljordan': ['site4', 'site5', 'site6'],
+        'atrocitus': ['destinationlinux', 'jupiterbroadcasting'],
+        'haljordan': ['atlassian', 'trello', 'archlinux'],
     }
     for username in usernames:
         user = User.objects.filter(username=username).first()
