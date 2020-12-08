@@ -59,8 +59,8 @@ def real_urls():
 def urls_data():
     return [
         {
-            'name': 'google',
-            'original_url': 'https://www.google.com',
+            'name': 'ubuntu',
+            'original_url': 'https://www.ubuntu.com',
             'frozen_timestamp': datetime(2020, 1, 1, 8, 0, 0),
         },
         {

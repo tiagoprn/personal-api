@@ -6,15 +6,16 @@ from freezegun import freeze_time
 from core.models import Url
 
 
+# @pytest.mark.vcr
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     'days,frozen_time,url_names',
     [
-        (5, '2020/01/05 08:00:00', ['bing', 'google']),
+        (5, '2020/01/05 08:00:00', ['bing', 'ubuntu']),
         (
             10,
             '2020/01/10 08:00:00',
-            ['bing', 'google', 'destinationlinux', 'jupiterbroadcasting'],
+            ['bing', 'ubuntu', 'destinationlinux', 'jupiterbroadcasting'],
         ),
         (2, '2020/01/25 08:00:00', ['trello', 'archlinux']),
         (
@@ -22,7 +23,7 @@ from core.models import Url
             '2020/01/25 08:00:00',
             [
                 'bing',
-                'google',
+                'ubuntu',
                 'destinationlinux',
                 'jupiterbroadcasting',
                 'github',
@@ -50,6 +51,7 @@ def test_recently_updated_filter(
 
 
 @pytest.mark.django_db
+# @pytest.mark.vcr
 def test_from_user_filter(
     setup_model_instances
 ):  # pylint: disable=unused-argument
@@ -60,7 +62,7 @@ def test_from_user_filter(
     usernames = ['atrocitus', 'haljordan']
     expected_user_urls = {
         'atrocitus': [
-            'google',
+            'ubuntu',
             'bing',
             'destinationlinux',
             'jupiterbroadcasting',
@@ -81,6 +83,7 @@ def test_from_user_filter(
 
 
 @pytest.mark.django_db
+# @pytest.mark.vcr
 def test_most_recent_and_from_user_filters_together(
     setup_model_instances
 ):  # pylint: disable=unused-argument
@@ -109,6 +112,7 @@ def test_most_recent_and_from_user_filters_together(
 
 
 @pytest.mark.django_db
+# @pytest.mark.vcr
 def test_search_by_shortened_hash(
     setup_model_instances
 ):  # pylint: disable=unused-argument
@@ -130,6 +134,7 @@ def test_search_by_shortened_hash(
 
 
 @pytest.mark.django_db
+# @pytest.mark.vcr
 def test_get_domain_property_value(
     setup_model_instances
 ):  # pylint: disable=unused-argument
