@@ -34,3 +34,4 @@ pylint-pytest==0.3.0
 black==19.3b0
 isort==5.6.4
 freezegun==1.0.0
+pytest-recording==0.11.0
