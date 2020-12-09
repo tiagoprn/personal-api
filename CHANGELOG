@@ -11,6 +11,6 @@ Adding URL model
 - [x] Add manage command to populate the database with test data
 - [x] Run `python personal_api/manage.py populate_test_data` and fix the error where the signal is not called, until it successfully is
 - [x] Fix 503 errors on failing tests
-- [ ] Fix failing test (ignore the one that just was not implemented)
+- [x] Fix failing test (ignore the one that just was not implemented)
+- [ ] Finish implementation of the failing tests (marked with "TODO" -`test_models.py`).
 - [ ] Uncomment the vcr decorator on `test_models.py` (to make tests quicker)
-- [ ] Finish implementation of the tests marked with "TODO" (`test_models.py`).
