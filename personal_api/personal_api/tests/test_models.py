@@ -113,7 +113,7 @@ def test_most_recent_and_from_user_filters_together(
 
 @pytest.mark.django_db
 # @pytest.mark.vcr
-def test_search_by_shortened_hash(
+def test_search_by_partial_shortened_hash(
     setup_model_instances
 ):  # pylint: disable=unused-argument
     User = get_user_model()
@@ -127,9 +127,32 @@ def test_search_by_shortened_hash(
         assert short_hash
         all_hashes.append({short_hash: url.slug})
 
-    # TODO: scenarios: exact string and partial string, with "ilike", etc...
-    # - so that we can be able to search for the smallest hash possible
-    assert False
+    for hash_dict in all_hashes:
+        key = list(hash_dict.keys())[0]
+
+        start_key = key[:11]
+        middle_key = key[7:17]
+        end_key = key[11:]
+
+        url_instance_with_start_key = Url.objects.filter(
+            shortened_hash__contains=start_key
+        ).first()
+
+        url_instance_with_middle_key = Url.objects.filter(
+            shortened_hash__contains=middle_key
+        ).first()
+
+        url_instance_with_end_key = Url.objects.filter(
+            shortened_hash__contains=end_key
+        ).first()
+
+        url_instances = [
+            url_instance_with_start_key,
+            url_instance_with_middle_key,
+            url_instance_with_end_key,
+        ]
+        for instance in url_instances:
+            assert instance.shortened_hash == key
 
 
 @pytest.mark.django_db
