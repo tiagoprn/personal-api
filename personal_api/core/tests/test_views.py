@@ -14,7 +14,8 @@ class TestViewsSample:
     @pytest.mark.skip('REFACTOR')
     def test_using_pytest_fixture_and_factory(self):
         # TODO: change the test below to NOT use the factory, due to
-        #       urls must exists for it to pass.
+        #       urls must exists for it to pass. Or add a way for it to
+        #       feed the url with existing ones.
         urls = set()
         while len(urls) < 60:
             fake_url = Faker().uri()
