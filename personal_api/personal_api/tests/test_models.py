@@ -160,4 +160,25 @@ def test_search_by_partial_shortened_hash(
 def test_get_domain_property_value(
     setup_model_instances
 ):  # pylint: disable=unused-argument
-    assert False  # TODO
+    User = get_user_model()
+    assert User.objects.count() == 2
+    assert Url.objects.count() == 10
+
+    domains = {}
+    for url in Url.objects.all():
+        domains[url.sanitized_url] = url.domain
+
+    expected_domains = {
+        'https://ubuntu.com': 'ubuntu.com',
+        'https://www.bing.com': 'www.bing.com',
+        'https://destinationlinux.org': 'destinationlinux.org',
+        'https://www.jupiterbroadcasting.com': 'www.jupiterbroadcasting.com',
+        'https://github.com': 'github.com',
+        'https://about.gitlab.com': 'about.gitlab.com',
+        'https://www.atlassian.com/software/jira': 'www.atlassian.com',
+        'https://www.atlassian.com': 'www.atlassian.com',
+        'https://trello.com': 'trello.com',
+        'https://www.archlinux.org': 'www.archlinux.org',
+    }
+
+    assert domains == expected_domains
