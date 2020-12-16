@@ -16,5 +16,5 @@ Adding URL model
 - [x] Move code from `personal_api/views.py` to `personal_api/core/views.py`, and the corresponding tests.
 - [x] Add view, serializer and filter classes to the Url model
 - [ ] Add automated tests submitting requests to the Url model REST API endpoints, including filters defined on the filter classes
-- [ ] Add `pagination_class` to `UrlViewSet`
+- [ ] Add `pagination_class` to `UrlViewSet` (check example on my github repo `catalog-sample-django-drf-app`)
 - [ ] Configure swagger for the Url model
