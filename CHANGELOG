@@ -14,3 +14,6 @@ Adding URL model
 - [x] Fix failing test (ignore the one that just was not implemented)
 - [x] Finish implementation of the failing tests (marked with "TODO" -`test_models.py`).
 - [ ] Uncomment the vcr decorator on `test_models.py` (to make tests quicker)
+- [ ] Add view and serializer classes to the Url model
+- [ ] Add view and serializer tests
+- [ ] Configure swagger for the Url model
