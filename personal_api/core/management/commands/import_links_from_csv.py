@@ -61,8 +61,11 @@ class Command(BaseCommand):
         username = options.get('username')
         csv_file_path = options.get('csv_file_path')
 
-        # TODO: validate if the user with the username exists
-        # TODO: validate if the csv_file_path exists
+        # TODO: validate if the user was informed,
+        #       and there is a user with the username
+
+        # TODO: validate if the csv_file_path was informed,
+        #       and the file exists on the filesystem
 
         self.stdout.write(
             f'Importing csv file "{csv_file_path}" '
