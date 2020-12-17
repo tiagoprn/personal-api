@@ -5,9 +5,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from core.filters import UrlFilter
-from core.models import Url
-from core.serializers import UrlSerializer
+from core.filters import LinkFilter
+from core.models import Link
+from core.serializers import LinkSerializer
 
 logger = logging.getLogger(__name__)
 
@@ -21,11 +21,11 @@ class GreetingsView(APIView):
         return Response(content)
 
 
-class UrlViewSet(ModelViewSet):
+class LinkViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated,)
     queryset = (
-        Url.objects.all()
+        Link.objects.all()
     )  # TODO: get by request user, using the model manager method
-    serializer_class = UrlSerializer
-    filterset_class = UrlFilter
+    serializer_class = LinkSerializer
+    filterset_class = LinkFilter
     # TODO: pagination_class = StandardResultsSetPagination

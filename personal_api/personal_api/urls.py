@@ -55,5 +55,5 @@ urlpatterns = [
         core_views.GreetingsView.as_view(),
         name='core_greetings',
     ),
-    path('core/urls/', core_views.UrlViewSet, name='core_urls'),
+    path('core/urls/', core_views.LinkViewSet, name='core_urls'),
 ]

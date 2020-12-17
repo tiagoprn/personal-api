@@ -8,7 +8,7 @@ import shortuuid
 logger = logging.getLogger(__name__)
 
 
-def sanitize_url(url: str) -> str:
+def sanitize_link(url: str) -> str:
     response = requests.get(url, allow_redirects=True)
     if response.status_code == 200:
         url = response.url

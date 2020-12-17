@@ -5,7 +5,7 @@ Adding URL model
 - [x] Add the user as a foreign key to the URL model
 - [x] Test the the api token generation is working with the new custom user model
 - [x] Write tests to validate api token generation and refresh
-- [x] Create a manager to `models.Url` so that it can get model instances from a given user.
+- [x] Create a manager to `models.Link` so that it can get model instances from a given user.
 - [x] Add `tests/test_models.py` - using real model instances in this case, not the model factories - to validate the implementation. Test `most_recent` and `from_user` separately and together
 - [x] Implement the business methods on `core.services.urls`
 - [x] Add manage command to populate the database with test data
@@ -14,7 +14,8 @@ Adding URL model
 - [x] Fix failing test (ignore the one that just was not implemented)
 - [x] Finish implementation of the failing tests (marked with "TODO" -`test_models.py`).
 - [x] Move code from `personal_api/views.py` to `personal_api/core/views.py`, and the corresponding tests.
-- [x] Add view, serializer and filter classes to the Url model
-- [ ] Add automated tests submitting requests to the Url model REST API endpoints, including filters defined on the filter classes
-- [ ] Add `pagination_class` to `UrlViewSet` (check example on my github repo `catalog-sample-django-drf-app`)
-- [ ] Configure swagger for the Url model
+- [x] Add view, serializer and filter classes to the Link model
+- [ ] Rename the Link model to Link
+- [ ] Add automated tests submitting requests to the Link model REST API endpoints, including filters defined on the filter classes
+- [ ] Add `pagination_class` to `LinkViewSet` (check example on my github repo `catalog-sample-django-drf-app`)
+- [ ] Configure swagger for the Link model

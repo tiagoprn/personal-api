@@ -1,16 +1,16 @@
 # Your Django Rest Framework serializers must go here.
 from rest_framework.serializers import ModelSerializer
 
-from core.models import Url
+from core.models import Link
 
 
-class UrlSerializer(ModelSerializer):
+class LinkSerializer(ModelSerializer):
     class Meta:
-        model = Url
-        fields = ('name', 'original_url', 'user')
+        model = Link
+        fields = ('name', 'original_link', 'user')
         read_only_fields = (
             'slug',
-            'sanitized_url',
+            'sanitized_link',
             'shortened_hash',
             'created_at',
             'updated_at',

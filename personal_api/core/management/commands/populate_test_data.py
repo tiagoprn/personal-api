@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.core.management.commands.test import Command as BaseCommand
 
-from core.models import Url
+from core.models import Link
 
 
 class Command(BaseCommand):
@@ -22,13 +22,13 @@ class Command(BaseCommand):
         User.objects.all()
         tiago = User.objects.first()
 
-        Url.objects.count()
-        tiago_url = Url(
-            name='autotest', original_url='https://www.osnews.com', user=tiago
+        Link.objects.count()
+        tiago_url = Link(
+            name='autotest', original_link='https://www.osnews.com', user=tiago
         )
         tiago_url.save()
 
-        must_have_values = ['shortened_hash', 'sanitized_url']
+        must_have_values = ['shortened_hash', 'sanitized_link']
 
         success = True
 
@@ -43,6 +43,6 @@ class Command(BaseCommand):
         if success:
             self.stdout.write(f'SUCCESS! Object properties={vars(tiago_url)}')
 
-        # Cascadingly deletes the created user and all its Urls,
+        # Cascadingly deletes the created user and all its Links,
         # including the one created here.
         User.objects.get(id=tiago.id).delete()

@@ -4,21 +4,21 @@ import uuid
 import pytest
 import shortuuid
 
-from core.services.urls import (
+from core.services.links import (
     generate_shortened_hash,
     get_domain,
-    sanitize_url,
+    sanitize_link,
 )
 
 logger = logging.getLogger(__name__)
 
 
-def test_sanitize_url(real_urls):
+def test_sanitize_link(real_urls):
     for record in real_urls:
-        sanitized_url = sanitize_url(record['original'])
+        sanitized_link = sanitize_link(record['original'])
         expected_url = record['sanitized']
-        logger.info(f'sanitized_url={sanitized_url}')
-        assert sanitized_url == expected_url
+        logger.info(f'sanitized_link={sanitized_link}')
+        assert sanitized_link == expected_url
 
 
 def test_generate_shortened_hash():

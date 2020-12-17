@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 import pytest
 from freezegun import freeze_time
 
-from core.models import Url
+from core.models import Link
 
 
 # @pytest.mark.vcr
@@ -41,10 +41,10 @@ def test_recently_updated_filter(
 ):  # pylint: disable=unused-argument
     User = get_user_model()
     assert User.objects.count() == 2
-    assert Url.objects.count() == 10
+    assert Link.objects.count() == 10
 
     with freeze_time(frozen_time):
-        recently_updated_urls_names = Url.objects.recently_updated(
+        recently_updated_urls_names = Link.objects.recently_updated(
             days=days
         ).values_list('name', flat=True)
         assert set(recently_updated_urls_names) == set(url_names)
@@ -57,7 +57,7 @@ def test_from_user_filter(
 ):  # pylint: disable=unused-argument
     User = get_user_model()
     assert User.objects.count() == 2
-    assert Url.objects.count() == 10
+    assert Link.objects.count() == 10
 
     usernames = ['atrocitus', 'haljordan']
     expected_user_urls = {
@@ -78,7 +78,7 @@ def test_from_user_filter(
     }
     for username in usernames:
         user = User.objects.filter(username=username).first()
-        urls = Url.objects.from_user(user=user).values_list('name', flat=True)
+        urls = Link.objects.from_user(user=user).values_list('name', flat=True)
         assert set(urls) == set(expected_user_urls[username])
 
 
@@ -89,7 +89,7 @@ def test_most_recent_and_from_user_filters_together(
 ):  # pylint: disable=unused-argument
     User = get_user_model()
     assert User.objects.count() == 2
-    assert Url.objects.count() == 10
+    assert Link.objects.count() == 10
 
     usernames = ['atrocitus', 'haljordan']
     most_recent_filters = {
@@ -105,7 +105,7 @@ def test_most_recent_and_from_user_filters_together(
         frozen_time = most_recent_filters[username]['frozen_time']
         days = most_recent_filters[username]['days']
         with freeze_time(frozen_time):
-            urls = Url.objects.recently_updated(
+            urls = Link.objects.recently_updated(
                 days=days, user=user
             ).values_list('name', flat=True)
             assert set(urls) == set(expected_user_urls[username])
@@ -118,10 +118,10 @@ def test_search_by_partial_shortened_hash(
 ):  # pylint: disable=unused-argument
     User = get_user_model()
     assert User.objects.count() == 2
-    assert Url.objects.count() == 10
+    assert Link.objects.count() == 10
 
     all_hashes = []
-    for url in Url.objects.all():
+    for url in Link.objects.all():
         assert url.id
         short_hash = url.shortened_hash
         assert short_hash
@@ -134,15 +134,15 @@ def test_search_by_partial_shortened_hash(
         middle_key = key[7:17]
         end_key = key[11:]
 
-        url_instance_with_start_key = Url.objects.filter(
+        url_instance_with_start_key = Link.objects.filter(
             shortened_hash__contains=start_key
         ).first()
 
-        url_instance_with_middle_key = Url.objects.filter(
+        url_instance_with_middle_key = Link.objects.filter(
             shortened_hash__contains=middle_key
         ).first()
 
-        url_instance_with_end_key = Url.objects.filter(
+        url_instance_with_end_key = Link.objects.filter(
             shortened_hash__contains=end_key
         ).first()
 
@@ -162,11 +162,11 @@ def test_get_domain_property_value(
 ):  # pylint: disable=unused-argument
     User = get_user_model()
     assert User.objects.count() == 2
-    assert Url.objects.count() == 10
+    assert Link.objects.count() == 10
 
     domains = {}
-    for url in Url.objects.all():
-        domains[url.sanitized_url] = url.domain
+    for url in Link.objects.all():
+        domains[url.sanitized_link] = url.domain
 
     expected_domains = {
         'https://ubuntu.com': 'ubuntu.com',

@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from django.db import models
 
 
-class UrlManager(models.Manager):
+class LinkManager(models.Manager):
     def from_user(self, user):
         queryset = self.get_queryset()
         return queryset.filter(user=user)

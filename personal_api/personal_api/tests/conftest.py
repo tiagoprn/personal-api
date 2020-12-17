@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 import pytest
 from freezegun import freeze_time
 
-from core.models import Url
+from core.models import Link
 
 logger = logging.getLogger(__name__)
 
@@ -60,52 +60,52 @@ def urls_data():
     return [
         {
             'name': 'ubuntu',
-            'original_url': 'https://www.ubuntu.com',
+            'original_link': 'https://www.ubuntu.com',
             'frozen_timestamp': datetime(2020, 1, 1, 8, 0, 0),
         },
         {
             'name': 'bing',
-            'original_url': 'https://www.bing.com',
+            'original_link': 'https://www.bing.com',
             'frozen_timestamp': datetime(2020, 1, 3, 8, 0, 0),
         },
         {
             'name': 'destinationlinux',
-            'original_url': 'https://destinationlinux.org',
+            'original_link': 'https://destinationlinux.org',
             'frozen_timestamp': datetime(2020, 1, 8, 8, 0, 0),
         },
         {
             'name': 'jupiterbroadcasting',
-            'original_url': 'https://www.jupiterbroadcasting.com',
+            'original_link': 'https://www.jupiterbroadcasting.com',
             'frozen_timestamp': datetime(2020, 1, 9, 8, 0, 0),
         },
         {
             'name': 'github',
-            'original_url': 'https://www.github.com',
+            'original_link': 'https://www.github.com',
             'frozen_timestamp': datetime(2020, 1, 12, 8, 0, 0),
         },
         {
             'name': 'gitlab',
-            'original_url': 'https://www.gitlab.com',
+            'original_link': 'https://www.gitlab.com',
             'frozen_timestamp': datetime(2020, 1, 15, 8, 0, 0),
         },
         {
             'name': 'jira',
-            'original_url': 'https://www.jira.com',
+            'original_link': 'https://www.jira.com',
             'frozen_timestamp': datetime(2020, 1, 18, 8, 0, 0),
         },
         {
             'name': 'atlassian',
-            'original_url': 'https://www.atlassian.com',
+            'original_link': 'https://www.atlassian.com',
             'frozen_timestamp': datetime(2020, 1, 21, 8, 0, 0),
         },
         {
             'name': 'trello',
-            'original_url': 'https://trello.com',
+            'original_link': 'https://trello.com',
             'frozen_timestamp': datetime(2020, 1, 24, 8, 0, 0),
         },
         {
             'name': 'archlinux',
-            'original_url': 'https://www.archlinux.org',
+            'original_link': 'https://www.archlinux.org',
             'frozen_timestamp': datetime(2020, 1, 25, 8, 0, 0),
         },
     ]
@@ -131,12 +131,12 @@ def setup_model_instances(urls_data, users_data):
             '%Y-%m-%d %H:%M:%S'
         )
         with freeze_time(frozen_timestamp):
-            new_url = Url.objects.create(**url)
+            new_url = Link.objects.create(**url)
             new_url.save()
 
     yield
 
     logger.info('teardown')
 
-    Url.objects.all().delete()
+    Link.objects.all().delete()
     User.objects.all().delete()
