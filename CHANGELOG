@@ -15,7 +15,7 @@ Adding URL model
 - [x] Finish implementation of the failing tests (marked with "TODO" -`test_models.py`).
 - [x] Move code from `personal_api/views.py` to `personal_api/core/views.py`, and the corresponding tests.
 - [x] Add view, serializer and filter classes to the Link model
-- [ ] Rename the Link model to Link
+- [x] Rename the Url model to Link
 - [ ] Add automated tests submitting requests to the Link model REST API endpoints, including filters defined on the filter classes
 - [ ] Add `pagination_class` to `LinkViewSet` (check example on my github repo `catalog-sample-django-drf-app`)
 - [ ] Configure swagger for the Link model
