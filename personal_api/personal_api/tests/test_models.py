@@ -162,7 +162,7 @@ def test_get_domain_property_value(
 ):  # pylint: disable=unused-argument
     User = get_user_model()
     assert User.objects.count() == 2
-    assert Link.objects.count() == 10
+    assert Link.objects.count() == 9
 
     domains = {}
     for url in Link.objects.all():
@@ -178,7 +178,6 @@ def test_get_domain_property_value(
         'https://www.atlassian.com/software/jira': 'www.atlassian.com',
         'https://www.atlassian.com': 'www.atlassian.com',
         'https://trello.com': 'trello.com',
-        'https://www.archlinux.org': 'www.archlinux.org',
     }
 
     assert domains == expected_domains

@@ -103,11 +103,6 @@ def urls_data():
             'original_link': 'https://trello.com',
             'frozen_timestamp': datetime(2020, 1, 24, 8, 0, 0),
         },
-        {
-            'name': 'archlinux',
-            'original_link': 'https://www.archlinux.org',
-            'frozen_timestamp': datetime(2020, 1, 25, 8, 0, 0),
-        },
     ]
 
 
