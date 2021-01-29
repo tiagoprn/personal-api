@@ -17,7 +17,7 @@ from core.models import Link
             '2020/01/10 08:00:00',
             ['bing', 'ubuntu', 'destinationlinux', 'jupiterbroadcasting'],
         ),
-        (2, '2020/01/25 08:00:00', ['trello', 'archlinux']),
+        (2, '2020/01/25 08:00:00', ['trello']),
         (
             25,
             '2020/01/25 08:00:00',
@@ -31,7 +31,6 @@ from core.models import Link
                 'jira',
                 'atlassian',
                 'trello',
-                'archlinux',
             ],
         ),
     ],
@@ -41,7 +40,7 @@ def test_recently_updated_filter(
 ):  # pylint: disable=unused-argument
     User = get_user_model()
     assert User.objects.count() == 2
-    assert Link.objects.count() == 10
+    assert Link.objects.count() == 9
 
     with freeze_time(frozen_time):
         recently_updated_urls_names = Link.objects.recently_updated(
@@ -57,7 +56,7 @@ def test_from_user_filter(
 ):  # pylint: disable=unused-argument
     User = get_user_model()
     assert User.objects.count() == 2
-    assert Link.objects.count() == 10
+    assert Link.objects.count() == 9
 
     usernames = ['atrocitus', 'haljordan']
     expected_user_urls = {
@@ -67,14 +66,7 @@ def test_from_user_filter(
             'destinationlinux',
             'jupiterbroadcasting',
         ],
-        'haljordan': [
-            'github',
-            'gitlab',
-            'jira',
-            'atlassian',
-            'trello',
-            'archlinux',
-        ],
+        'haljordan': ['github', 'gitlab', 'jira', 'atlassian', 'trello'],
     }
     for username in usernames:
         user = User.objects.filter(username=username).first()
@@ -89,7 +81,7 @@ def test_most_recent_and_from_user_filters_together(
 ):  # pylint: disable=unused-argument
     User = get_user_model()
     assert User.objects.count() == 2
-    assert Link.objects.count() == 10
+    assert Link.objects.count() == 9
 
     usernames = ['atrocitus', 'haljordan']
     most_recent_filters = {
@@ -98,7 +90,7 @@ def test_most_recent_and_from_user_filters_together(
     }
     expected_user_urls = {
         'atrocitus': ['destinationlinux', 'jupiterbroadcasting'],
-        'haljordan': ['atlassian', 'trello', 'archlinux'],
+        'haljordan': ['atlassian', 'trello'],
     }
     for username in usernames:
         user = User.objects.filter(username=username).first()
@@ -118,7 +110,7 @@ def test_search_by_partial_shortened_hash(
 ):  # pylint: disable=unused-argument
     User = get_user_model()
     assert User.objects.count() == 2
-    assert Link.objects.count() == 10
+    assert Link.objects.count() == 9
 
     all_hashes = []
     for url in Link.objects.all():
