@@ -18,10 +18,11 @@ python-json-logger==0.1.11
 celery==4.4.7
 celery-prometheus-exporter==1.7.0
 shortuuid==1.0.1
-
+pandas==1.2.3
 
 # debugging and development
 ipdb==0.13.3
+pudb==2020.1
 pytest==6.1.0
 pytest-cov==2.10.1
 pytest-django==3.10.0
