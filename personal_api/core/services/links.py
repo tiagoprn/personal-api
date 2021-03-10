@@ -34,3 +34,8 @@ def generate_shortened_hash(uid: uuid.UUID) -> str:
 def get_domain(url: str) -> str:
     parsed_url = urlparse(url)
     return parsed_url.netloc
+
+
+def get_name_from_url(url: str) -> str:
+    # TODO
+    pass

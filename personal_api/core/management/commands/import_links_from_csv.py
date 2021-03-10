@@ -1,4 +1,5 @@
 import os
+import pandas
 import sys
 
 from django.contrib.auth import get_user_model
@@ -79,6 +80,14 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR(message))
             sys.exit(1)
 
+    def validate_existing_columns(dataframe):
+        mandatory = {'link'}
+        existing_columns = mandatory.intersection(set(dataframe.columns))
+        if not existing_columns:
+            message = f'Mandatory columns missing from file: {mandatory}'
+            self.stdout.write(self.style.ERROR(message))
+            sys.exit(1)
+
     def handle(self, *args, **options):  # pylint: disable=unused-argument
         """
         To test manually:
@@ -101,4 +110,9 @@ class Command(BaseCommand):
             f'for username "{links_user.username}"... '
         )
 
-        # TODO: continue importing from here using pandas
+        dataframe = pandas.read_csv(csv_file_path)
+        self.validate_existing_columns(dataframe)
+
+        # TODO: continue importing from here using pandas.
+        #       If there is not a column with "name", call
+        #       "services.links.get_name_from_url" to set it
