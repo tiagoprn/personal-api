@@ -1,8 +1,8 @@
 .PHONY: help requirements
+
 SHELL := /bin/bash
-
+PROJECT_ROOT=$(shell pwd)
 DJANGO_CMD = python personal_api/manage.py
-
 SETTINGS = personal_api.settings
 
 help:  ## This help
@@ -103,3 +103,6 @@ local-refresh-access-token:  ## Refresh the authentication token for the endpoin
 local-test-user-token:  ## Use greetings' protected endpoint to test the authentication token. E.g.: make local-test-user-token token=XXXXXX
 	@curl http://localhost:8000/core/greetings/ -H "Authorization: Bearer $(token)"
 
+local-links-csv-import-test:  ## Imports the sample csv into the local database
+	@$(DJANGO_CMD) create_admin_superuser_without_input --username admin1 --password 12345678 --noinput --email 'admin1@gmail.com' || true
+	@$(DJANGO_CMD) import_links_from_csv --username=admin1 --csv-file-path=$(PROJECT_ROOT)/personal_api/core/tests/assets/links.csv
