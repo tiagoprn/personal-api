@@ -47,24 +47,24 @@ def test_get_domain(url, expected_domain):
     [
         (
             'https://flaviocopes.com/page/ebooks-links/',
-            'flaviocopes.com_ebooks-links',
+            'flaviocopes.com ebooks-links',
         ),
         (
             'https://github.com/danth/pathfinder.vim',
-            'github.com_pathfinder.vim',
+            'github.com pathfinder.vim',
         ),
         (
             'https://fedoramagazine.org/how-to-use-poetry-to-manage-your-python-projects-on-fedora/',
-            'fedoramagazine.org_how-to-use-poetry-to-manage-your-python-projects-on-fedora',
+            'fedoramagazine.org how-to-use-poetry-to-manage-your-python-projects-on-fedora',
         ),
         (
             'https://opensource.com/article/21/2/kubernetes-maintainer?utm_medium=Email&utm_campaign=weekly&sc_cid=7013a000002vqnQAAQ',
-            'opensource.com_kubernetes-maintainer',
+            'opensource.com kubernetes-maintainer',
         ),
         ('https://www.luos.io/', 'www.luos.io'),
         (
             'https://atthis.link/blog/2021/rss.html?utm_source=hackernewsletter&utm_medium=email&utm_term=fav',
-            'atthis.link_rss.html',
+            'atthis.link rss.html',
         ),
         ('http://me.io/', 'me.io'),
     ],

@@ -54,8 +54,6 @@ def get_name_from_url(url: str) -> str:
         if '?' in uri:
             uri = uri.split('?')[0]
 
-    name = f'{domain}_{uri}'
-    if name.endswith('_'):
-        name = name[0:-1]
+    name = f'{domain} {uri}'.strip()
 
     return name

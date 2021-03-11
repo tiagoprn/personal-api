@@ -16,7 +16,7 @@ Adding URL model
 - [x] Move code from `personal_api/views.py` to `personal_api/core/views.py`, and the corresponding tests.
 - [x] Add view, serializer and filter classes to the Link model
 - [x] Rename the Url model to Link
-- [-] Create a function to set name from a link
+- [x] Create a function to set name from a link
 - [-] Create a management command to populate links from a CSV, leveraging pandas to do that.
 - [ ] Use curl to manually play with the Link model REST API endpoints
 - [ ] Add automated tests submitting requests to the Link model REST API endpoints, including filters defined on the filter classes
