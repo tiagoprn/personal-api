@@ -44,12 +44,15 @@ def get_name_from_url(url: str) -> str:
     domain = get_domain(url)
 
     scheme = urlparse(url).scheme
-    protocol = f'{scheme}://'
-    partial_uri = url.replace(protocol, '').replace(protocol, '')
 
-    uri = partial_uri.split('/')[-1]
-    if uri:
-        uri = uri.split('?')[0]
+    protocol = f'{scheme}://'
+    partial_uri = url.replace(protocol, '').replace(domain, '')
+
+    uri = ''
+    if '/' in partial_uri:
+        uri = partial_uri.split('/')[-1]
+        if '?' in uri:
+            uri = uri.split('?')[0]
 
     name = f'{domain}_{uri}'
     if name.endswith('_'):

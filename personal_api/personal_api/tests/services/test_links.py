@@ -66,6 +66,7 @@ def test_get_domain(url, expected_domain):
             'https://atthis.link/blog/2021/rss.html?utm_source=hackernewsletter&utm_medium=email&utm_term=fav',
             'atthis.link_rss.html',
         ),
+        ('http://me.io/', 'me.io'),
     ],
 )
 def test_get_name_from_url(url, expected_name):
