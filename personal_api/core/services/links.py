@@ -1,4 +1,5 @@
 import logging
+import re
 import uuid
 from urllib.parse import urlparse
 
@@ -37,5 +38,21 @@ def get_domain(url: str) -> str:
 
 
 def get_name_from_url(url: str) -> str:
-    # TODO
-    pass
+    if url.endswith('/'):
+        url = url[0:-1]
+
+    domain = get_domain(url)
+
+    scheme = urlparse(url).scheme
+    protocol = f'{scheme}://'
+    partial_uri = url.replace(protocol, '').replace(protocol, '')
+
+    uri = partial_uri.split('/')[-1]
+    if uri:
+        uri = uri.split('?')[0]
+
+    name = f'{domain}_{uri}'
+    if name.endswith('_'):
+        name = name[0:-1]
+
+    return name

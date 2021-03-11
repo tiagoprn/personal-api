@@ -8,6 +8,7 @@ from core.services.links import (
     generate_shortened_hash,
     get_domain,
     sanitize_link,
+    get_name_from_url,
 )
 
 logger = logging.getLogger(__name__)
@@ -39,3 +40,34 @@ def test_generate_shortened_hash():
 def test_get_domain(url, expected_domain):
     domain = get_domain(url)
     assert domain == expected_domain
+
+
+@pytest.mark.parametrize(
+    'url,expected_name',
+    [
+        (
+            'https://flaviocopes.com/page/ebooks-links/',
+            'flaviocopes.com_ebooks-links',
+        ),
+        (
+            'https://github.com/danth/pathfinder.vim',
+            'github.com_pathfinder.vim',
+        ),
+        (
+            'https://fedoramagazine.org/how-to-use-poetry-to-manage-your-python-projects-on-fedora/',
+            'fedoramagazine.org_how-to-use-poetry-to-manage-your-python-projects-on-fedora',
+        ),
+        (
+            'https://opensource.com/article/21/2/kubernetes-maintainer?utm_medium=Email&utm_campaign=weekly&sc_cid=7013a000002vqnQAAQ',
+            'opensource.com_kubernetes-maintainer',
+        ),
+        ('https://www.luos.io/', 'www.luos.io'),
+        (
+            'https://atthis.link/blog/2021/rss.html?utm_source=hackernewsletter&utm_medium=email&utm_term=fav',
+            'atthis.link_rss.html',
+        ),
+    ],
+)
+def test_get_name_from_url(url, expected_name):
+    name = get_name_from_url(url)
+    assert name == expected_name
