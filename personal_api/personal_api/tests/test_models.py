@@ -173,3 +173,40 @@ def test_get_domain_property_value(
     }
 
     assert domains == expected_domains
+
+
+@pytest.mark.django_db
+# @pytest.mark.vcr
+def test_set_name_from_url_when_name_empty(
+    setup_user_instances
+):  # pylint: disable=unused-argument
+    User = get_user_model()
+    assert User.objects.count() == 2
+
+    urls = (
+        'https://johnlekberg.com/blog/2020-11-27-cli-pandoc.html',
+        'https://github.com/andy-landy/traceback_with_variables#colors',
+        'https://jon.bo/posts/digital-tools/',
+        'https://danishpraka.sh/2020/02/23/journaling-in-vim.html',
+        'https://danishpraka.sh/',
+        'https://github.com/danishprakash/vimport',
+    )
+
+    for url in urls:
+        new_url = Link(original_link=url, user=User.objects.first())
+        new_url.save()
+
+    names = [link.name for link in Link.objects.all()]
+
+    expected_names = [
+        'johnlekberg.com 2020-11-27-cli-pandoc.html',
+        'github.com traceback_with_variables#colors',
+        'jon.bo digital-tools',
+        'danishpraka.sh journaling-in-vim.html',
+        'danishpraka.sh',
+        'github.com vimport',
+    ]
+
+    assert names == expected_names
+
+    Link.objects.all().delete()

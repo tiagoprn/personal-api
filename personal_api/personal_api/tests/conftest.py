@@ -135,3 +135,21 @@ def setup_model_instances(urls_data, users_data):
 
     Link.objects.all().delete()
     User.objects.all().delete()
+
+
+@pytest.fixture()
+@pytest.mark.django_db
+def setup_user_instances(users_data):
+    logger.info('setup')
+
+    User = get_user_model()
+
+    for user in users_data:
+        new_user = User.objects.create_user(**user)
+        new_user.save()
+
+    yield
+
+    logger.info('teardown')
+
+    User.objects.all().delete()
