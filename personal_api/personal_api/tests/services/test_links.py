@@ -7,8 +7,8 @@ import shortuuid
 from core.services.links import (
     generate_shortened_hash,
     get_domain,
-    sanitize_link,
     get_name_from_url,
+    sanitize_link,
 )
 
 logger = logging.getLogger(__name__)

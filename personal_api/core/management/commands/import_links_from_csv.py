@@ -1,10 +1,11 @@
 import logging
 import os
 import sys
-import pandas
 
 from django.contrib.auth import get_user_model
 from django.core.management.commands.test import Command as BaseCommand
+
+import pandas
 
 from core.models import Link
 

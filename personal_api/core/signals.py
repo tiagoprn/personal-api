@@ -5,8 +5,8 @@ from django.db.models.signals import post_save, pre_save
 from core.models import Link
 from core.services.links import (
     generate_shortened_hash,
-    sanitize_link,
     get_name_from_url,
+    sanitize_link,
 )
 
 logger = logging.getLogger(__name__)
