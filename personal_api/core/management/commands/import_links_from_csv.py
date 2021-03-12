@@ -1,6 +1,8 @@
+import logging
 import os
-import pandas
 import sys
+from functools import partial
+import pandas
 
 from django.contrib.auth import get_user_model
 from django.core.management.commands.test import Command as BaseCommand
@@ -9,33 +11,26 @@ from core.models import Link
 
 User = get_user_model()
 
+logger = logging.getLogger(__name__)
+
+
+def import_link(user: User, link: str):
+    try:
+        new_url = Link(original_link=link, user=user)
+        new_url.save()
+        message = f'Successfully saved link="{link}" (id="{new_url.id}")'
+        logger.info(message)
+    except Exception as ex:
+        message = f'Exception trying to save link="{link}": {ex}'
+        logger.error(message)
+
+
+def print_value(link: str):
+    print(link)
+
 
 class Command(BaseCommand):
     help = 'Populate Links from a csv'
-
-    # TODO: this method is here just to be used as a reference.
-    #       Delete after finishing the actual handler below.
-    def sample_creation_handle(
-        self, *args, **kwargs
-    ):  # pylint: disable=unused-argument
-        User.objects.count()
-
-        user_data = {
-            'username': 'tiago',
-            'password': '12345678',
-            'email': 'tiago@example.com',
-        }
-        new_user = User(**user_data)
-        new_user.save()
-
-        User.objects.all()
-        tiago = User.objects.first()
-
-        Link.objects.count()
-        tiago_url = Link(
-            name='autotest', original_link='https://www.osnews.com', user=tiago
-        )
-        tiago_url.save()
 
     def add_arguments(self, parser):
         super().add_arguments(parser)
@@ -80,7 +75,7 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR(message))
             sys.exit(1)
 
-    def validate_existing_columns(dataframe):
+    def validate_existing_columns(self, dataframe):
         mandatory = {'link'}
         existing_columns = mandatory.intersection(set(dataframe.columns))
         if not existing_columns:
@@ -91,14 +86,9 @@ class Command(BaseCommand):
     def handle(self, *args, **options):  # pylint: disable=unused-argument
         """
         To test manually:
-
-        create-admin-superuser-without-input username=admin1 \
-            password=12345678 email=admin1@gmail.com;
-
-        python personal_api/manage.py import_links_from_csv \
-            --username=admin1 --csv-file-path=/tmp/links.csv
-
+        make local-links-csv-import-test
         """
+
         username = options.get('username')
         csv_file_path = options.get('csv_file_path')
 
@@ -113,6 +103,4 @@ class Command(BaseCommand):
         dataframe = pandas.read_csv(csv_file_path)
         self.validate_existing_columns(dataframe)
 
-        # TODO: continue importing from here using pandas.
-        #       If there is not a column with "name", call
-        #       "services.links.get_name_from_url" to set it
+        dataframe.link.apply(lambda x: import_link(link=x, user=links_user))
