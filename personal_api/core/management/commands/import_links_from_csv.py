@@ -1,7 +1,6 @@
 import logging
 import os
 import sys
-from functools import partial
 import pandas
 
 from django.contrib.auth import get_user_model
@@ -23,10 +22,6 @@ def import_link(user: User, link: str):
     except Exception as ex:
         message = f'Exception trying to save link="{link}": {ex}'
         logger.error(message)
-
-
-def print_value(link: str):
-    print(link)
 
 
 class Command(BaseCommand):
@@ -103,4 +98,6 @@ class Command(BaseCommand):
         dataframe = pandas.read_csv(csv_file_path)
         self.validate_existing_columns(dataframe)
 
-        dataframe.link.apply(lambda x: import_link(link=x, user=links_user))
+        dataframe.link.apply(
+            lambda value: import_link(link=value, user=links_user)
+        )
