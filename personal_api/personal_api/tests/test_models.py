@@ -207,6 +207,6 @@ def test_set_name_from_url_when_name_empty(
         'github.com vimport',
     ]
 
-    assert names == expected_names
+    assert set(names) == set(expected_names)
 
     Link.objects.all().delete()
