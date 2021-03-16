@@ -18,7 +18,8 @@ Adding URL model
 - [x] Rename the Url model to Link
 - [x] Create a function to set name from a link
 - [x] Create a management command to populate links from a CSV, leveraging pandas to do that.
-- [ ] Use curl to manually play with the Link model REST API endpoints
-- [ ] Add automated tests submitting requests to the Link model REST API endpoints, including filters defined on the filter classes
-- [ ] Add `pagination_class` to `LinkViewSet` (check example on my github repo `catalog-sample-django-drf-app`)
-- [ ] Configure swagger for the Link model
+- [x] Manually test healthcheck API liveness/readiness endpoints (curl)
+- [ ] Manually test links API endpoints (CRUD) - curl or redocs (http://localhost:8000)
+- [ ] FUTURE: Add automated tests submitting requests to the Link model REST API endpoints, including filters defined on the filter classes
+- [ ] FUTURE: Add `pagination_class` to `LinkViewSet` (check example on my github repo `catalog-sample-django-drf-app`)
+- [ ] FUTURE: Configure swagger for the Link model
