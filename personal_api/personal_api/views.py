@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 @lru_cache(maxsize=None)
 def get_app_version():
-    root_path = str(Path().absolute().parent)
+    root_path = str(Path().absolute())
     with open(os.path.join(root_path, 'VERSION'), 'r') as version_file:
         return version_file.read().replace('\n', '')
 
