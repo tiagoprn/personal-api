@@ -93,6 +93,7 @@ class HealthcheckLiveness(APIView):
         response_dict = {
             'live': live,
             'broker': broker,
+            'name': 'personal-api',
             'version': get_app_version(),
             'timestamp': timestamp,
             'timezone': timezone,
@@ -118,6 +119,7 @@ class HealthcheckLiveness(APIView):
 
         response_dict = {
             'live': live,
+            'name': 'personal-api',
             'version': get_app_version(),
             'last_migration': migration_name,
             'timestamp': timestamp,
@@ -147,6 +149,7 @@ class HealthcheckReadiness(APIView):
         app_type += f' {django.get_version()}'
         response_dict = {
             'ready': 'OK',
+            'app_name': 'personal-api',
             'app_version': get_app_version(),
             'app_type': app_type,
         }
