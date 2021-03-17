@@ -106,3 +106,7 @@ local-test-user-token:  ## Use greetings' protected endpoint to test the authent
 local-links-csv-import-test:  ## Imports the sample csv into the local database
 	@$(DJANGO_CMD) create_admin_superuser_without_input --username admin1 --password 12345678 --noinput --email 'admin1@gmail.com' || true
 	@$(DJANGO_CMD) import_links_from_csv --username=admin1 --csv-file-path=$(PROJECT_ROOT)/personal_api/core/tests/assets/links.csv
+
+local-test-get-links:  ## Get all links. E.g.: make local-test-get-links token=XXXXXX
+	@curl http://localhost:8000/core/links -H "Content-Type: application/json;charset=utf-8" -H "Authorization: Bearer $(token)" -L # -s --write-out '%{json}'
+
