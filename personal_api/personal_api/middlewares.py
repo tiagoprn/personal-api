@@ -10,5 +10,13 @@ class ExceptionMiddleware(MiddlewareMixin):
     """
 
     def process_exception(self, request, exception):
-        response = {'error': True, 'message': str(exception)}
+        frame = str(exception.__traceback__.tb_frame)
+        locals_context = str(exception.__traceback__.tb_frame.f_locals)
+        locals_context = f'[{locals_context[1:][:-1]}]'
+        response = {
+            'error': True,
+            'message': str(exception),
+            'frame': frame,
+            'locals_context': locals_context,
+        }
         return JsonResponse(response, status=500)

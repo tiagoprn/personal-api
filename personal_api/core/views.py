@@ -23,9 +23,11 @@ class GreetingsView(APIView):
 
 class LinkViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated,)
-    queryset = (
-        Link.objects.all()
-    )  # TODO: get by request user, using the model manager method
     serializer_class = LinkSerializer
     filterset_class = LinkFilter
     # TODO: pagination_class = StandardResultsSetPagination
+
+    def get_queryset(self):
+        # user_id = self.request.query_params.get("user_id", None)
+        user = self.request.user
+        return Link.objects.from_user(user=user)
