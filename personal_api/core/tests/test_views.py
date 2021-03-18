@@ -22,11 +22,16 @@ def test_access_to_greetings_endpoint_must_fail_on_anonymous_user(
 
 
 @pytest.mark.django_db
-def test_access_to_links_get_endpoint_must_fail_on_anonymous_user(
-    anonymous_api_client,
-):
-    response = anonymous_api_client.get('/core/api/links/')
-    assert response.status_code == 401
-    assert response.json() == {
-        'detail': 'Authentication credentials were not provided.'
-    }
+class TestLinkViewSet:
+    def test_access_to_links_get_endpoint_must_fail_on_anonymous_user(
+        self, anonymous_api_client
+    ):
+        response = anonymous_api_client.get('/core/api/links/')
+        assert response.status_code == 401
+        assert response.json() == {
+            'detail': 'Authentication credentials were not provided.'
+        }
+
+    # TODO
+    def test_links_get_endpoint(self, setup_links_instances):
+        assert setup_links_instances
