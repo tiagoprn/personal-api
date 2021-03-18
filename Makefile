@@ -89,16 +89,16 @@ show-urls: clean  ## Show all urls available on the app
 	$(DJANGO_CMD) show_urls
 
 local-healthcheck-readiness:  ## Run curl to make sure the app/worker/scheduler is ready
-	@curl http://localhost:8000/health-check/readiness
+	@curl http://localhost:8000/health-check/readiness -L -s | jq
 
 local-healthcheck-liveness:  ## Run curl to make sure the app/worker/scheduler is live
-	@curl http://localhost:8000/health-check/liveness
+	@curl http://localhost:8000/health-check/liveness -L -s | jq
 
 local-get-access-token:  ## Get the token for the endpoints that require authentication. E.g.: make local-get-access-token username=tiago password=12345678
-	@curl -s -X POST http://localhost:8000/api/token/ -d "username=$(username)" -d "password=$(password)" | python -m json.tool | jq
+	@curl -s -X POST http://localhost:8000/api/token/ -d "username=$(username)" -d "password=$(password)" | jq
 
 local-refresh-access-token:  ## Refresh the authentication token for the endpoints that require authentication, generating a new one. E.g.: make local-refresh-access-token refresh_token=XXXXXX
-	@curl -s -X POST http://localhost:8000/api/token/refresh/ -d "refresh=$(refresh_token)" | python -m json.tool | jq
+	@curl -s -X POST http://localhost:8000/api/token/refresh/ -d "refresh=$(refresh_token)" | jq
 
 local-test-user-token:  ## Use greetings' protected endpoint to test the authentication token. E.g.: make local-test-user-token token=XXXXXX
 	@curl http://localhost:8000/core/greetings/ -H "Authorization: Bearer $(token)"
@@ -108,5 +108,5 @@ local-links-csv-import-test:  ## Imports the sample csv into the local database
 	@$(DJANGO_CMD) import_links_from_csv --username=admin1 --csv-file-path=$(PROJECT_ROOT)/personal_api/core/tests/assets/links.csv
 
 local-test-get-links:  ## Get all links. E.g.: make local-test-get-links token=XXXXXX
-	@curl http://localhost:8000/core/links -H "Content-Type: application/json;charset=utf-8" -H "Authorization: Bearer $(token)" -L -s | python -m json.tool | pygmentize -l json  # -s --write-out '%{json}'
+	@curl http://localhost:8000/core/links -H "Content-Type: application/json;charset=utf-8" -H "Authorization: Bearer $(token)" -L -s | jq
 

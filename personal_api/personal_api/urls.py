@@ -40,12 +40,12 @@ urlpatterns = [
         name='token_refresh',
     ),
     path(
-        'health-check/liveness',
+        'health-check/liveness/',
         project_views.HealthcheckLiveness.as_view(),
         name='healthcheck_liveness',
     ),
     path(
-        'health-check/readiness',
+        'health-check/readiness/',
         project_views.HealthcheckReadiness.as_view(),
         name='healthcheck_readiness',
     ),
