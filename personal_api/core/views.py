@@ -25,7 +25,6 @@ class LinkViewSet(ModelViewSet):
     permission_classes = (IsAuthenticated,)
     serializer_class = LinkSerializer
     filterset_class = LinkFilter
-    # TODO: pagination_class = StandardResultsSetPagination
 
     def get_queryset(self):
         # user_id = self.request.query_params.get("user_id", None)

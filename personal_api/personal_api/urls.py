@@ -1,9 +1,9 @@
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import include, path, re_path
 
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
-from rest_framework import permissions
+from rest_framework import permissions, routers
 from rest_framework_simplejwt import views as jwt_views
 
 from core import views as core_views
@@ -14,6 +14,14 @@ schema_view = get_schema_view(
     public=True,
     permission_classes=(permissions.AllowAny,),
 )
+
+# DRF routers are used here on ModelViewsets so that
+# the URL "RESTful" endpoints are automatically built
+# (otherwise I would have to use ".as_view()" like the
+# custom API views below and have to manually configure the
+# endpoints).
+router = routers.DefaultRouter()
+router.register('links', core_views.LinkViewSet, basename='core_links')
 
 urlpatterns = [
     re_path(
@@ -55,5 +63,5 @@ urlpatterns = [
         core_views.GreetingsView.as_view(),
         name='core_greetings',
     ),
-    path('core/links/', core_views.LinkViewSet, name='core_links'),
+    path('core/api/', include(router.urls)),
 ]
