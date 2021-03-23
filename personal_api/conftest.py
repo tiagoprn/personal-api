@@ -65,13 +65,17 @@ def setup_links_instances(links_list, setup_user_instances):
     User = get_user_model()
     assert User.objects.count() == 2
 
+    users_links = {}
     for index, url in enumerate(links_list):
         is_even = index % 2 == 0
         user = User.objects.first() if is_even else User.objects.last()
         new_url = Link(original_link=url, user=user)
         new_url.save()
+        if not str(user.id) in users_links.keys():
+            users_links[str(user.id)] = []
+        users_links[str(user.id)].append(new_url.original_link)
 
-    return Link.objects.all()
+    return users_links
 
 
 @pytest.fixture
