@@ -23,7 +23,7 @@ Adding URL model
 - [x] Finish implementation of the Link ModelViewSet (TODOs at `/storage/src/personal-api/personal_api/core/views.py`)
 - [-] Add automated tests submitting requests to the Link model REST API endpoints, including filters defined on the filter classes
 	- [x] merge both `conftest.py` into one, so that it can be shared between bots test suites (personal_api and core)
-	- [ ] GET all from user
+	- [x] GET all from user
 	- [ ] GET single
 	- [ ] GET with filter
 	- [ ] POST

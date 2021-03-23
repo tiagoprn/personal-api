@@ -79,7 +79,37 @@ class TestLinkViewSet:
             ]
             assert set(links) == set(expected_users_links[str(user.id)])
 
+    def test_links_get_single_endpoint_for_existing_users(
+        self, setup_links_instances
+    ):
+        pass  # TODO
+
+    def test_links_get_with_filter_endpoint_for_existing_users(
+        self, setup_links_instances
+    ):
+        pass  # TODO
+
     def test_links_post_endpoint_for_existing_users(
+        self, setup_links_instances
+    ):
+        pass  # TODO
+
+    def test_links_put_endpoint_for_existing_users(
+        self, setup_links_instances
+    ):
+        pass  # TODO
+
+    def test_links_patch_endpoint_for_existing_users(
+        self, setup_links_instances
+    ):
+        pass  # TODO
+
+    def test_links_delete_single_endpoint_for_existing_users(
+        self, setup_links_instances
+    ):
+        pass  # TODO
+
+    def test_links_delete_all_endpoint_for_existing_users(
         self, setup_links_instances
     ):
         pass  # TODO
