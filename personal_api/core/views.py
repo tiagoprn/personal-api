@@ -1,5 +1,6 @@
 import logging
 
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -27,6 +28,8 @@ class LinkViewSet(ModelViewSet):
     filterset_class = LinkFilter
 
     def get_queryset(self):
-        # user_id = self.request.query_params.get("user_id", None)
+        # params = self.request.query_params
         user = self.request.user
-        return Link.objects.from_user(user=user)
+
+        query = Link.objects.from_user(user=user)
+        return query

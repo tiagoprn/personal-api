@@ -77,17 +77,26 @@ class TestLinkViewSet:
             links = [
                 result['original_link'] for result in json_response['results']
             ]
+
             assert set(links) == set(expected_users_links[str(user.id)])
 
-    def test_links_get_single_endpoint_for_existing_users(
+    def test_links_get_with_filter_endpoint_for_existing_user(
         self, setup_links_instances
     ):
-        pass  # TODO
+        user = User.objects.filter(username='atrocitus').first()
+        client = self.authenticated_api_client(user=user)
 
-    def test_links_get_with_filter_endpoint_for_existing_users(
-        self, setup_links_instances
-    ):
-        pass  # TODO
+        response = client.get('/core/api/links/?name=redhat')
+        assert response.status_code == 200
+
+        json_response = response.json()
+        assert json_response['count'] == 1
+
+        original_link = json_response['results'][0]['original_link']
+        expected_original_link = (
+            'https://www.redhat.com/sysadmin/getting-started-socat'
+        )
+        assert original_link == expected_original_link
 
     def test_links_post_endpoint_for_existing_users(
         self, setup_links_instances

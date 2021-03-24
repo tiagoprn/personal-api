@@ -24,8 +24,12 @@ Adding URL model
 - [-] Add automated tests submitting requests to the Link model REST API endpoints, including filters defined on the filter classes
 	- [x] merge both `conftest.py` into one, so that it can be shared between bots test suites (personal_api and core)
 	- [x] GET all from user
-	- [ ] GET single
+	- [x] Adicionar no requirements.vim, e testar no personal_api: <https://github.com/gaogaotiantian/watchpoints>.
 	- [ ] GET with filter
+		- <https://stackoverflow.com/questions/42582859/filtering-using-viewsets-in-django-rest-framework>
+		- <https://sunscrapers.com/blog/the-ultimate-tutorial-for-django-rest-framework-functional-endpoints-and-api-nesting-part-6/>
+		- <https://github.com/sunscrapers/restonomicon>
+		- <https://www.reddit.com/r/django/comments/93jhtp/add_custom_action_to_drf_modelviewset/>
 	- [ ] POST
 	- [ ] PUT
 	- [ ] PATCH
