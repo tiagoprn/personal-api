@@ -109,7 +109,16 @@ class TestLinkViewSet:
                 'name',
                 'redhat',
                 'https://www.redhat.com/sysadmin/getting-started-socat',
-            )
+            ),
+            (
+                'haljordan',
+                'name',
+                'dropbox',
+                'https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
+            ),
+            # TODO: add filter by id
+            # TODO: add filter by created_at
+            # TODO: add filter by updated_at
         ],
     )
     def test_links_get_with_filter_endpoint_for_existing_user(
