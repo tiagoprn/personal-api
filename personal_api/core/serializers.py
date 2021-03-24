@@ -7,8 +7,19 @@ from core.models import Link
 class LinkSerializer(ModelSerializer):
     class Meta:
         model = Link
-        fields = ('name', 'original_link', 'user')
+        fields = (
+            'id',
+            'name',
+            'original_link',
+            'user',
+            'slug',
+            'sanitized_link',
+            'shortened_hash',
+            'created_at',
+            'updated_at',
+        )
         read_only_fields = (
+            'id',
             'slug',
             'sanitized_link',
             'shortened_hash',

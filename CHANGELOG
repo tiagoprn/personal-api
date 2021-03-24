@@ -35,6 +35,7 @@ Adding URL model
 	- [ ] PATCH
 	- [ ] DELETE (single)
 	- [ ] DELETE all (should not work)
+- [ ] change user.id type to UUID (today it is an integer)
 - [ ] drf-yasg broke (no more redocs)
 
 ---

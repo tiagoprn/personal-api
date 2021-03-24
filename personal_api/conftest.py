@@ -9,6 +9,7 @@ from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from core.models import CustomUser, Link
+from core.serializers import LinkSerializer
 from core.tests.factories import UserModelFactory
 
 logger = logging.getLogger(__name__)
@@ -73,7 +74,8 @@ def setup_links_instances(links_list, setup_user_instances):
         new_url.save()
         if not str(user.id) in users_links.keys():
             users_links[str(user.id)] = []
-        users_links[str(user.id)].append(new_url.original_link)
+        serialized_url_dict = LinkSerializer(new_url).data
+        users_links[str(user.id)].append(serialized_url_dict)
 
     return users_links
 

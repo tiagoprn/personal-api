@@ -51,17 +51,33 @@ class TestLinkViewSet:
     ):
         expected_users_links = {
             '1': [
-                'https://www.redhat.com/sysadmin/getting-started-socat',
-                'https://www.django-rest-framework.org/api-guide/viewsets/',
-                'https://github.com/curl/curl',
+                {
+                    'original_link': 'https://www.redhat.com/sysadmin/getting-started-socat'
+                },
+                {
+                    'original_link': 'https://www.django-rest-framework.org/api-guide/viewsets/'
+                },
+                {'original_link': 'https://github.com/curl/curl'},
             ],
             '2': [
-                'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
-                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
-                'https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
+                {
+                    'original_link': 'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210'
+                },
+                {
+                    'original_link': 'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html'
+                },
+                {
+                    'original_link': 'https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform'
+                },
             ],
         }
-        assert setup_links_instances == expected_users_links
+        for user_id in setup_links_instances.keys():
+            for index, link in enumerate(setup_links_instances[user_id]):
+                print(link)
+                expected_link = expected_users_links[user_id][index][
+                    'original_link'
+                ]
+                assert link['original_link'] == expected_link
 
         for user in User.objects.all():
             client = self.authenticated_api_client(user=user)
@@ -78,7 +94,12 @@ class TestLinkViewSet:
                 result['original_link'] for result in json_response['results']
             ]
 
-            assert set(links) == set(expected_users_links[str(user.id)])
+            expected_links = [
+                link['original_link']
+                for link in expected_users_links[str(user.id)]
+            ]
+
+            assert set(links) == set(expected_links)
 
     @pytest.mark.parametrize(
         'username,field_name,field_value,expected_original_link',
@@ -111,27 +132,27 @@ class TestLinkViewSet:
         original_link = json_response['results'][0]['original_link']
         assert original_link == expected_original_link
 
-    def test_links_post_endpoint_for_existing_users(
-        self, setup_links_instances
-    ):
-        pass  # TODO
+    # def test_links_post_endpoint_for_existing_users(
+    #     self, setup_links_instances
+    # ):
+    #     pass  # TODO
 
-    def test_links_put_endpoint_for_existing_users(
-        self, setup_links_instances
-    ):
-        pass  # TODO
+    # def test_links_put_endpoint_for_existing_users(
+    #     self, setup_links_instances
+    # ):
+    #     pass  # TODO
 
-    def test_links_patch_endpoint_for_existing_users(
-        self, setup_links_instances
-    ):
-        pass  # TODO
+    # def test_links_patch_endpoint_for_existing_users(
+    #     self, setup_links_instances
+    # ):
+    #     pass  # TODO
 
-    def test_links_delete_single_endpoint_for_existing_users(
-        self, setup_links_instances
-    ):
-        pass  # TODO
+    # def test_links_delete_single_endpoint_for_existing_users(
+    #     self, setup_links_instances
+    # ):
+    #     pass  # TODO
 
-    def test_links_delete_all_endpoint_for_existing_users(
-        self, setup_links_instances
-    ):
-        pass  # TODO
+    # def test_links_delete_all_endpoint_for_existing_users(
+    #     self, setup_links_instances
+    # ):
+    #     pass  # TODO
