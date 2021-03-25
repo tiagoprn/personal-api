@@ -111,9 +111,21 @@ class TestLinkViewSet:
                 'https://www.redhat.com/sysadmin/getting-started-socat',
             ),
             (
+                'atrocitus',
+                'name',
+                'socat',
+                'https://www.redhat.com/sysadmin/getting-started-socat',
+            ),
+            (
                 'haljordan',
                 'name',
                 'dropbox',
+                'https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
+            ),
+            (
+                'haljordan',
+                'name',
+                'monolith',
                 'https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
             ),
             (
@@ -128,13 +140,26 @@ class TestLinkViewSet:
                 'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
                 'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
             ),
-            # TODO: add filter by sanitized_link
-            # TODO: add filter by slug
-            # TODO: add filter by shortened_hash (full)
-            # TODO: add filter by shortened_hash (partial)
-            # TODO: add filter by id
-            # TODO: add filter by created_at
-            # TODO: add filter by updated_at
+            (
+                'haljordan',
+                'sanitized_link',
+                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
+                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
+            ),
+            (
+                'atrocitus',
+                'slug',
+                'githubcom-curl',
+                'https://github.com/curl/curl',
+            ),
+            ('atrocitus', 'slug', 'curl', 'https://github.com/curl/curl'),
+            ('atrocitus', 'slug', '-curl', 'https://github.com/curl/curl'),
+            ('atrocitus', 'slug', 'github', 'https://github.com/curl/curl'),
+            # TODO: add filter by shortened_hash (full) - this is different each time, so I will probably have to mock with freeze_time to get some consistency
+            # TODO: add filter by shortened_hash (partial) - this is different each time, so I will probably have to mock with freeze_time to get some consistency
+            # TODO: add filter by id - this is different each time, so I will probably have to mock with freeze_time to get some consistency
+            # TODO: add filter by created_at - this is different each time, so I will probably have to mock with freeze_time to get some consistency
+            # TODO: add filter by updated_at - this is different each time, so I will probably have to mock with freeze_time to get some consistency
         ],
     )
     def test_links_get_with_filter_endpoint_for_existing_user(
