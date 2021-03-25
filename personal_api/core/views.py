@@ -28,7 +28,20 @@ class LinkViewSet(ModelViewSet):
     filterset_class = LinkFilter
 
     def get_queryset(self):
-        # params = self.request.query_params
+        params = self.request.query_params
+
+        param_names = set(key for key in params)
+        model_fields = set(field.name for field in Link._meta.get_fields())
+
+        if param_names.difference(model_fields):
+            message = (
+                f'ERROR: params ({", ".join(list(param_names))}) '
+                f'are not valid Link properties '
+                f'(which are: {", ".join(sorted(list(model_fields)))}). '
+                f'Use valid Link properties as params and try again.'
+            )
+            raise Exception(message)
+
         user = self.request.user
 
         query = Link.objects.from_user(user=user)

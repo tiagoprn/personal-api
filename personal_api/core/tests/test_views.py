@@ -116,6 +116,22 @@ class TestLinkViewSet:
                 'dropbox',
                 'https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
             ),
+            (
+                'atrocitus',
+                'slug',
+                'django-rest-framework',
+                'https://www.django-rest-framework.org/api-guide/viewsets/',
+            ),
+            (
+                'haljordan',
+                'original_link',
+                'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
+                'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
+            ),
+            # TODO: add filter by sanitized_link
+            # TODO: add filter by slug
+            # TODO: add filter by shortened_hash (full)
+            # TODO: add filter by shortened_hash (partial)
             # TODO: add filter by id
             # TODO: add filter by created_at
             # TODO: add filter by updated_at
@@ -132,7 +148,9 @@ class TestLinkViewSet:
         user = User.objects.filter(username=username).first()
         client = self.authenticated_api_client(user=user)
 
-        response = client.get(f'/core/api/links/?{field_name}={field_value}')
+        url = f'/core/api/links/?{field_name}={field_value}'
+
+        response = client.get(url)
         assert response.status_code == 200
 
         json_response = response.json()
