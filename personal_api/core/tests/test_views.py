@@ -191,7 +191,25 @@ class TestLinkViewSet:
                 'UAz',
                 'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
             ),
-            # TODO: add filter by id - this is different each time, so I mocked with freeze_time to get some consistency
+            # TODO: check, the below tests are failing
+            (
+                'atrocitus',
+                'id',
+                'd85eace6-6443-4b0d-9a01-7ec7f7c6c9c8',
+                'https://www.django-rest-framework.org/api-guide/viewsets/',
+            ),
+            (
+                'haljordan',
+                'id',
+                '69c082fe-fa66-4f5e-b784-84be5d5a1817',
+                'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
+            ),
+            (
+                'haljordan',
+                'id',
+                '9304e4a9-93fc-4e97-9177-32e8518782e8',
+                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
+            ),
             # TODO: add filter by created_at - this is different each time, so I will probably have to mock with freeze_time to get some consistency
             # TODO: add filter by updated_at - this is different each time, so I will probably have to mock with freeze_time to get some consistency
         ],
@@ -207,7 +225,10 @@ class TestLinkViewSet:
         user = User.objects.filter(username=username).first()
         client = self.authenticated_api_client(user=user)
 
-        url = f'/core/api/links/?{field_name}={field_value}'
+        if field_name == 'id':
+            url = f'/core/api/links/{field_value}/'
+        else:
+            url = f'/core/api/links/?{field_name}={field_value}'
 
         response = client.get(url)
         assert response.status_code == 200
@@ -219,7 +240,7 @@ class TestLinkViewSet:
 
         import json
 
-        print(json.dumps(json_response))
+        print(f'==========>> {json.dumps(json_response)}')
 
         assert original_link == expected_original_link
 
