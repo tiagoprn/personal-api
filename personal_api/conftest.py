@@ -1,4 +1,5 @@
-from datetime import datetime
+import uuid
+from datetime import datetime, timedelta
 import logging
 
 import pytest
@@ -62,7 +63,25 @@ def links_list():
 
 
 @pytest.fixture
-def setup_links_instances(links_list, setup_user_instances):
+def uuids():
+    fixed_uuids = [
+        '7b5bd93b-0aa2-4879-8aa4-262318d503a0',
+        '69c082fe-fa66-4f5e-b784-84be5d5a1817',
+        'd85eace6-6443-4b0d-9a01-7ec7f7c6c9c8',
+        '9304e4a9-93fc-4e97-9177-32e8518782e8',
+        '239812fe-0b6d-4d33-b21e-e5c5cbd67656',
+        '4cde0dba-67b3-43fb-b402-c966611cbf6d',
+        '1353ff2c-e86e-41f3-8b09-84031f8405d1',
+        'ce4171f7-1792-402a-8204-cfa9419147fe',
+        '4cb89ff1-2ad3-49ff-909d-f2b23cf2817e',
+        '44519977-a701-4c3b-8ed6-53d4dce9a05c',
+    ]
+
+    return [uuid.UUID(value) for value in fixed_uuids]
+
+
+@pytest.fixture
+def setup_links_instances(links_list, setup_user_instances, uuids):
     User = get_user_model()
     assert User.objects.count() == 2
 
@@ -70,10 +89,21 @@ def setup_links_instances(links_list, setup_user_instances):
     for index, url in enumerate(links_list):
         is_even = index % 2 == 0
         user = User.objects.first() if is_even else User.objects.last()
-        new_url = Link(original_link=url, user=user)
-        new_url.save()
-        if not str(user.id) in users_links.keys():
+
+        date_obj = datetime.strptime(
+            '2021-01-01 08:00:00', '%Y-%m-%d %H:%M:%S'
+        )
+        frozen_timestamp = (date_obj + timedelta(days=index + 3)).strftime(
+            '%Y-%m-%d %H:%M:%S'
+        )
+        with freeze_time(frozen_timestamp):
+            new_url = Link(original_link=url, user=user)
+            new_url.id = uuids[index]
+            new_url.save()
+
+        if str(user.id) not in users_links.keys():
             users_links[str(user.id)] = []
+
         serialized_url_dict = LinkSerializer(new_url).data
         users_links[str(user.id)].append(serialized_url_dict)
 

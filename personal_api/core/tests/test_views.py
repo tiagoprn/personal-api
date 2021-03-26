@@ -155,9 +155,43 @@ class TestLinkViewSet:
             ('atrocitus', 'slug', 'curl', 'https://github.com/curl/curl'),
             ('atrocitus', 'slug', '-curl', 'https://github.com/curl/curl'),
             ('atrocitus', 'slug', 'github', 'https://github.com/curl/curl'),
-            # TODO: add filter by shortened_hash (full) - this is different each time, so I will probably have to mock with freeze_time to get some consistency
-            # TODO: add filter by shortened_hash (partial) - this is different each time, so I will probably have to mock with freeze_time to get some consistency
-            # TODO: add filter by id - this is different each time, so I will probably have to mock with freeze_time to get some consistency
+            (
+                'atrocitus',
+                'shortened_hash',
+                'gWKyugt9UpKs6Ub2YZ3G4F',
+                'https://www.django-rest-framework.org/api-guide/viewsets/',
+            ),
+            (
+                'haljordan',
+                'shortened_hash',
+                'LpVcZWxwx6aAz9WpnriKhP',
+                'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
+            ),
+            (
+                'haljordan',
+                'shortened_hash',
+                'UAziYkWY2LBRfZzQVh92hz',
+                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
+            ),
+            (
+                'atrocitus',
+                'shortened_hash',
+                'gWK',
+                'https://www.django-rest-framework.org/api-guide/viewsets/',
+            ),
+            (
+                'haljordan',
+                'shortened_hash',
+                'LpV',
+                'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
+            ),
+            (
+                'haljordan',
+                'shortened_hash',
+                'UAz',
+                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
+            ),
+            # TODO: add filter by id - this is different each time, so I mocked with freeze_time to get some consistency
             # TODO: add filter by created_at - this is different each time, so I will probably have to mock with freeze_time to get some consistency
             # TODO: add filter by updated_at - this is different each time, so I will probably have to mock with freeze_time to get some consistency
         ],
@@ -182,6 +216,11 @@ class TestLinkViewSet:
         assert json_response['count'] == 1
 
         original_link = json_response['results'][0]['original_link']
+
+        import json
+
+        print(json.dumps(json_response))
+
         assert original_link == expected_original_link
 
     # def test_links_post_endpoint_for_existing_users(
