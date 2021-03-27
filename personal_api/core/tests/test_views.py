@@ -191,7 +191,6 @@ class TestLinkViewSet:
                 'UAz',
                 'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
             ),
-            # TODO: check, the below tests are failing
             (
                 'atrocitus',
                 'id',
@@ -222,6 +221,12 @@ class TestLinkViewSet:
                 '2021-01-16T00:00:00Z',
                 'https://www.redhat.com/sysadmin/getting-started-socat,https://www.django-rest-framework.org/api-guide/viewsets/',
             ),
+            (
+                'haljordan',
+                'min_created_at,max_created_at',
+                '2021-01-13T00:00:00Z,2021-01-19T23:59:59Z',
+                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html,https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
+            ),
             # TODO: add filter by min_created_at AND max_created_at (core.filters).
             # TODO: add filters by updated_at (duplicate the same 3 from created_at)
             # TODO:     To inspect data to write the tests above: `cat /tmp/temptestfile.txt | sed '/./G'`
@@ -238,10 +243,20 @@ class TestLinkViewSet:
         user = User.objects.filter(username=username).first()
         client = self.authenticated_api_client(user=user)
 
+        date_range_field = bool(',' in field_name)
+
         if field_name == 'id':
             url = f'/core/api/links/{field_value}/'
         else:
-            url = f'/core/api/links/?{field_name}={field_value}'
+            if date_range_field:
+                names = field_name.split(',')
+                values = field_value.split(',')
+                url = (
+                    f'/core/api/links/?{names[0]}={values[0]}'
+                    f'&{names[1]}={values[1]}'
+                )
+            else:
+                url = f'/core/api/links/?{field_name}={field_value}'
 
         response = client.get(url)
 
