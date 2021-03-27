@@ -210,8 +210,8 @@ class TestLinkViewSet:
                 '9304e4a9-93fc-4e97-9177-32e8518782e8',
                 'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
             ),
-            # TODO: add filter by created_at - this is different each time, so I will probably have to mock with freeze_time to get some consistency
-            # TODO: add filter by updated_at - this is different each time, so I will probably have to mock with freeze_time to get some consistency
+            # TODO: add filter by created_at - use min_created_at and max_created_at (core.filters)
+            # TODO: add filter by updated_at - use min_updated_at and max_updated_at (core.filters)
         ],
     )
     def test_links_get_with_filter_endpoint_for_existing_user(
