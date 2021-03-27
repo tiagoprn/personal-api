@@ -252,25 +252,29 @@ class TestLinkViewSet:
 
         json_response = response.json()
 
-        if field_name != 'id':
-            if ',' in expected_original_link:
-                expected_links = expected_original_link.split(',')
-                assert json_response['count'] == len(expected_links)
-
-                links = [
-                    result['original_link']
-                    for result in json_response['results']
-                ]
-                assert set(links) == set(expected_links)
-                return
-            else:
-                assert json_response['count'] == 1
-                original_link = json_response['results'][0]['original_link']
-        else:
+        if field_name == 'id':
             assert json_response['id'] == field_value
             original_link = json_response['original_link']
+            assert original_link == expected_original_link
+            return
 
-        assert original_link == expected_original_link
+        multiple_expected_original_links = bool(',' in expected_original_link)
+
+        if not multiple_expected_original_links:
+            assert json_response['count'] == 1
+            original_link = json_response['results'][0]['original_link']
+            assert original_link == expected_original_link
+            return
+
+        if multiple_expected_original_links:
+            expected_links = expected_original_link.split(',')
+            assert json_response['count'] == len(expected_links)
+
+            links = [
+                result['original_link'] for result in json_response['results']
+            ]
+            assert set(links) == set(expected_links)
+            return
 
     # def test_links_post_endpoint_for_existing_users(
     #     self, setup_links_instances
