@@ -222,9 +222,9 @@ class TestLinkViewSet:
                 '2021-01-16T00:00:00Z',
                 'https://www.redhat.com/sysadmin/getting-started-socat,https://www.django-rest-framework.org/api-guide/viewsets/',
             ),
-            # TODO: add filter by min_created_at and max_created_at (core.filters).
-            # TODO: add filters by updated_at (duplicate the same from created_at)
-            # TODO:     To inspect data to write both tests above: `cat /tmp/temptestfile.txt | sed '/./G'`
+            # TODO: add filter by min_created_at AND max_created_at (core.filters).
+            # TODO: add filters by updated_at (duplicate the same 3 from created_at)
+            # TODO:     To inspect data to write the tests above: `cat /tmp/temptestfile.txt | sed '/./G'`
         ],
     )
     def test_links_get_with_filter_endpoint_for_existing_user(
