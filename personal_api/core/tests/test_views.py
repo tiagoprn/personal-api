@@ -227,9 +227,24 @@ class TestLinkViewSet:
                 '2021-01-13T00:00:00Z,2021-01-19T23:59:59Z',
                 'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html,https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
             ),
-            # TODO: add filter by min_created_at AND max_created_at (core.filters).
-            # TODO: add filters by updated_at (duplicate the same 3 from created_at)
-            # TODO:     To inspect data to write the tests above: `cat /tmp/temptestfile.txt | sed '/./G'`
+            (
+                'atrocitus',
+                'min_updated_at',
+                '2021-01-16T00:00:00Z',
+                'https://github.com/curl/curl',
+            ),
+            (
+                'atrocitus',
+                'max_updated_at',
+                '2021-01-16T00:00:00Z',
+                'https://www.redhat.com/sysadmin/getting-started-socat,https://www.django-rest-framework.org/api-guide/viewsets/',
+            ),
+            (
+                'haljordan',
+                'min_updated_at,max_updated_at',
+                '2021-01-13T00:00:00Z,2021-01-19T23:59:59Z',
+                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html,https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
+            ),
         ],
     )
     def test_links_get_with_filter_endpoint_for_existing_user(
