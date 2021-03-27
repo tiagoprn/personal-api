@@ -234,9 +234,13 @@ class TestLinkViewSet:
         assert response.status_code == 200
 
         json_response = response.json()
-        assert json_response['count'] == 1
 
-        original_link = json_response['results'][0]['original_link']
+        if field_name != 'id':
+            assert json_response['count'] == 1
+            original_link = json_response['results'][0]['original_link']
+        else:
+            assert json_response['id'] == field_value
+            original_link = json_response['original_link']
 
         import json
 
