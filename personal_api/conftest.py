@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime, timedelta
+import json
 import logging
 
 import pytest
@@ -86,26 +87,34 @@ def setup_links_instances(links_list, setup_user_instances, uuids):
     assert User.objects.count() == 2
 
     users_links = {}
-    for index, url in enumerate(links_list):
-        is_even = index % 2 == 0
-        user = User.objects.first() if is_even else User.objects.last()
 
-        date_obj = datetime.strptime(
-            '2021-01-01 08:00:00', '%Y-%m-%d %H:%M:%S'
-        )
-        frozen_timestamp = (date_obj + timedelta(days=index + 3)).strftime(
-            '%Y-%m-%d %H:%M:%S'
-        )
-        with freeze_time(frozen_timestamp):
-            new_url = Link(original_link=url, user=user)
-            new_url.id = uuids[index]
-            new_url.save()
+    with open('/tmp/temptestfile.txt', 'w+') as temp_test_file:
+        for index, url in enumerate(links_list):
+            is_even = index % 2 == 0
+            user = User.objects.first() if is_even else User.objects.last()
 
-        if str(user.id) not in users_links.keys():
-            users_links[str(user.id)] = []
+            date_obj = datetime.strptime(
+                '2021-01-01 08:00:00', '%Y-%m-%d %H:%M:%S'
+            )
+            frozen_timestamp = (date_obj + timedelta(days=index + 3)).strftime(
+                '%Y-%m-%d %H:%M:%S'
+            )
+            with freeze_time(frozen_timestamp):
+                new_url = Link(original_link=url, user=user)
+                new_url.id = uuids[index]
+                new_url.save()
 
-        serialized_url_dict = LinkSerializer(new_url).data
-        users_links[str(user.id)].append(serialized_url_dict)
+            if str(user.id) not in users_links.keys():
+                users_links[str(user.id)] = []
+
+            serialized_url_dict = LinkSerializer(new_url).data
+
+            temp_test_file.write(
+                f'Adding link for username={user.username}: '
+                f'{json.dumps(serialized_url_dict)}\n'
+            )
+
+            users_links[str(user.id)].append(serialized_url_dict)
 
     return users_links
 
