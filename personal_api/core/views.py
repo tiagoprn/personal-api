@@ -32,12 +32,15 @@ class LinkViewSet(ModelViewSet):
 
         param_names = set(key for key in params)
         model_fields = set(field.name for field in Link._meta.get_fields())
+        filter_fields = set(field for field in LinkFilter.Meta.fields)
 
-        if param_names.difference(model_fields):
+        fields = model_fields.union(filter_fields)
+
+        if param_names.difference(fields):
             message = (
                 f'ERROR: params ({", ".join(list(param_names))}) '
-                f'are not valid Link properties '
-                f'(which are: {", ".join(sorted(list(model_fields)))}). '
+                f'are not valid search properties on Link '
+                f'(which are: {", ".join(sorted(list(fields)))}). '
                 f'Use valid Link properties as params and try again.'
             )
             raise Exception(message)

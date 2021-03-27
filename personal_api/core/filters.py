@@ -23,6 +23,6 @@ class LinkFilter(FilterSet):
     sanitized_link = CharFilter(lookup_expr='icontains')
     shortened_hash = CharFilter(lookup_expr='icontains')
     min_created_at = DateTimeFilter(field_name='created_at', lookup_expr='gte')
-    max_created_at = DateTimeFilter(field_name='created_at', lookup_expr='gte')
+    max_created_at = DateTimeFilter(field_name='created_at', lookup_expr='lte')
     min_updated_at = DateTimeFilter(field_name='updated_at', lookup_expr='gte')
     max_updated_at = DateTimeFilter(field_name='updated_at', lookup_expr='lte')

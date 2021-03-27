@@ -210,8 +210,20 @@ class TestLinkViewSet:
                 '9304e4a9-93fc-4e97-9177-32e8518782e8',
                 'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
             ),
-            # TODO: add filter by created_at - use min_created_at and max_created_at (core.filters).
-            # TODO: add filter by updated_at - use min_updated_at and max_updated_at (core.filters)
+            (
+                'atrocitus',
+                'min_created_at',
+                '2021-01-16T00:00:00Z',
+                'https://github.com/curl/curl',
+            ),
+            (
+                'atrocitus',
+                'max_created_at',
+                '2021-01-16T00:00:00Z',
+                'https://www.redhat.com/sysadmin/getting-started-socat,https://www.django-rest-framework.org/api-guide/viewsets/',
+            ),
+            # TODO: add filter by min_created_at and max_created_at (core.filters).
+            # TODO: add filters by updated_at (duplicate the same from created_at)
             # TODO:     To inspect data to write both tests above: `cat /tmp/temptestfile.txt | sed '/./G'`
         ],
     )
@@ -232,20 +244,31 @@ class TestLinkViewSet:
             url = f'/core/api/links/?{field_name}={field_value}'
 
         response = client.get(url)
+
+        if response.status_code != 200:
+            __import__('ipdb').set_trace()
+
         assert response.status_code == 200
 
         json_response = response.json()
 
         if field_name != 'id':
-            assert json_response['count'] == 1
-            original_link = json_response['results'][0]['original_link']
+            if ',' in expected_original_link:
+                expected_links = expected_original_link.split(',')
+                assert json_response['count'] == len(expected_links)
+
+                links = [
+                    result['original_link']
+                    for result in json_response['results']
+                ]
+                assert set(links) == set(expected_links)
+                return
+            else:
+                assert json_response['count'] == 1
+                original_link = json_response['results'][0]['original_link']
         else:
             assert json_response['id'] == field_value
             original_link = json_response['original_link']
-
-        import json
-
-        print(f'==========>> {json.dumps(json_response)}')
 
         assert original_link == expected_original_link
 
