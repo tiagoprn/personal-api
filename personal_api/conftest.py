@@ -89,16 +89,15 @@ def setup_links_instances(links_list, setup_user_instances, uuids):
     users_links = {}
 
     with open('/tmp/temptestfile.txt', 'w+') as temp_test_file:
+        reference_date = datetime.strptime(
+            '2021-01-01 08:00:00', '%Y-%m-%d %H:%M:%S'
+        )
         for index, url in enumerate(links_list):
             is_even = index % 2 == 0
             user = User.objects.first() if is_even else User.objects.last()
 
-            date_obj = datetime.strptime(
-                '2021-01-01 08:00:00', '%Y-%m-%d %H:%M:%S'
-            )
-            frozen_timestamp = (date_obj + timedelta(days=index + 3)).strftime(
-                '%Y-%m-%d %H:%M:%S'
-            )
+            reference_date = reference_date + timedelta(days=3)
+            frozen_timestamp = reference_date.strftime('%Y-%m-%d %H:%M:%S')
             with freeze_time(frozen_timestamp):
                 new_url = Link(original_link=url, user=user)
                 new_url.id = uuids[index]
