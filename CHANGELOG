@@ -37,6 +37,7 @@ Adding URL model
 		- [x] PATCH
 		- [x] DELETE (single)
 - [ ] Run the full test suite again
+- [ ] Run style-check and lint and make the needed fixes
 - [ ] change user.id type to UUID (today it is an integer)
 - [ ] drf-yasg broke (no more redocs)
 
