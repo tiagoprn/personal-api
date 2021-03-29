@@ -306,10 +306,30 @@ class TestLinkViewSet:
             assert set(links) == set(expected_links)
             return
 
-    # def test_links_post_endpoint_for_existing_users(
-    #     self, setup_links_instances
-    # ):
-    #     pass  # TODO
+    @pytest.mark.parametrize(
+        'username, url',
+        [
+            ('haljordan', 'https://www.osnews.com'),
+            ('atrocitus', 'https://www.gnome.org/'),
+            ('haljordan', 'https://tools.suckless.org/'),
+        ],
+    )
+    def test_links_post_endpoint_for_existing_users(
+        self, setup_user_instances, username, url
+    ):
+        user = User.objects.filter(username=username).first()
+        client = self.authenticated_api_client(user=user)
+        response = client.post(
+            '/core/api/links/', data={'original_link': url, 'user': user.id}
+        )
+        assert response.status_code == 201
+
+        response = client.get('/core/api/links/')
+        assert response.status_code == 200
+
+        json_response = response.json()
+        assert json_response['count'] == 1
+        assert json_response['results'][0]['original_link'] == url
 
     # def test_links_put_endpoint_for_existing_users(
     #     self, setup_links_instances
