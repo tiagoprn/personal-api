@@ -331,15 +331,136 @@ class TestLinkViewSet:
         assert json_response['count'] == 1
         assert json_response['results'][0]['original_link'] == url
 
-    # def test_links_put_endpoint_for_existing_users(
-    #     self, setup_links_instances
-    # ):
-    #     pass  # TODO
+    @pytest.mark.parametrize(
+        'username, url, initial_name, changed_name, expected_changed_name',
+        [
+            (
+                'haljordan',
+                'https://www.osnews.com',
+                'www.osnews.com',
+                'name1',
+                'name1',
+            ),
+            (
+                'atrocitus',
+                'https://www.gnome.org',
+                'www.gnome.org',
+                'name2',
+                'name2',
+            ),
+            (
+                'haljordan',
+                'https://tools.suckless.org',
+                'tools.suckless.org',
+                'name3',
+                'name3',
+            ),
+        ],
+    )
+    def test_links_put_endpoint_for_existing_users(
+        self,
+        setup_user_instances,
+        username,
+        url,
+        initial_name,
+        changed_name,
+        expected_changed_name,
+    ):
+        user = User.objects.filter(username=username).first()
+        client = self.authenticated_api_client(user=user)
+        response = client.post(
+            '/core/api/links/', data={'original_link': url, 'user': user.id}
+        )
+        assert response.status_code == 201
 
-    # def test_links_patch_endpoint_for_existing_users(
-    #     self, setup_links_instances
-    # ):
-    #     pass  # TODO
+        response = client.get('/core/api/links/')
+        json_response = response.json()
+        assert json_response['count'] == 1
+
+        json_response_record = json_response['results'][0]
+        assert json_response_record['original_link'] == url
+        assert json_response_record['name'] == initial_name
+
+        record_id = json_response_record['id']
+
+        response = client.put(
+            f'/core/api/links/{record_id}/',
+            data={'original_link': url, 'user': user.id, 'name': changed_name},
+        )
+        assert response.status_code == 200
+
+        response = client.get('/core/api/links/')
+        json_response = response.json()
+        assert json_response['count'] == 1
+
+        json_response_record = json_response['results'][0]
+        assert json_response_record['original_link'] == url
+        assert json_response_record['name'] == expected_changed_name
+
+    @pytest.mark.parametrize(
+        'username, url, initial_name, changed_name, expected_changed_name',
+        [
+            (
+                'haljordan',
+                'https://www.osnews.com',
+                'www.osnews.com',
+                'name1',
+                'name1',
+            ),
+            (
+                'atrocitus',
+                'https://www.gnome.org',
+                'www.gnome.org',
+                'name2',
+                'name2',
+            ),
+            (
+                'haljordan',
+                'https://tools.suckless.org',
+                'tools.suckless.org',
+                'name3',
+                'name3',
+            ),
+        ],
+    )
+    def test_links_patch_endpoint_for_existing_users(
+        self,
+        setup_user_instances,
+        username,
+        url,
+        initial_name,
+        changed_name,
+        expected_changed_name,
+    ):
+        user = User.objects.filter(username=username).first()
+        client = self.authenticated_api_client(user=user)
+        response = client.post(
+            '/core/api/links/', data={'original_link': url, 'user': user.id}
+        )
+        assert response.status_code == 201
+
+        response = client.get('/core/api/links/')
+        json_response = response.json()
+        assert json_response['count'] == 1
+
+        json_response_record = json_response['results'][0]
+        assert json_response_record['original_link'] == url
+        assert json_response_record['name'] == initial_name
+
+        record_id = json_response_record['id']
+
+        response = client.patch(
+            f'/core/api/links/{record_id}/', data={'name': changed_name}
+        )
+        assert response.status_code == 200
+
+        response = client.get('/core/api/links/')
+        json_response = response.json()
+        assert json_response['count'] == 1
+
+        json_response_record = json_response['results'][0]
+        assert json_response_record['original_link'] == url
+        assert json_response_record['name'] == expected_changed_name
 
     # def test_links_delete_single_endpoint_for_existing_users(
     #     self, setup_links_instances
