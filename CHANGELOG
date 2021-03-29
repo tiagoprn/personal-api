@@ -36,7 +36,7 @@ Adding URL model
 	- [x] DELETE all (should not work)
 		- [x] PATCH
 		- [x] DELETE (single)
-- [ ] Run the full test suite again
+- [ ] Run the full test suite again (if DNS errors occur, change to my 4G Hotspot and try again).
 - [ ] Run style-check and lint and make the needed fixes
 - [ ] change user.id type to UUID (today it is an integer)
 - [ ] drf-yasg broke (no more redocs)
