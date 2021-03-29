@@ -31,11 +31,12 @@ Adding URL model
 		- <https://sunscrapers.com/blog/the-ultimate-tutorial-for-django-rest-framework-functional-endpoints-and-api-nesting-part-6/>
 		- <https://github.com/sunscrapers/restonomicon>
 		- <https://www.reddit.com/r/django/comments/93jhtp/add_custom_action_to_drf_modelviewset/>
-	- [ ] POST
-	- [ ] PUT
-	- [ ] PATCH
-	- [ ] DELETE (single)
-	- [ ] DELETE all (should not work)
+	- [x] POST
+	- [x] PUT
+	- [x] DELETE all (should not work)
+		- [x] PATCH
+		- [x] DELETE (single)
+- [ ] Run the full test suite again
 - [ ] change user.id type to UUID (today it is an integer)
 - [ ] drf-yasg broke (no more redocs)
 
