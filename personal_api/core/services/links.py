@@ -9,15 +9,21 @@ import shortuuid
 logger = logging.getLogger(__name__)
 
 
-def sanitize_link(url: str) -> str:
+def _validate_url(url: str) -> str:
     response = requests.get(url, allow_redirects=True)
+
     if response.status_code == 200:
-        url = response.url
-    else:
-        raise Exception(
-            f'Unexpected status code {response.status_code} '
-            f'trying to reach url={url}.'
-        )
+        return response.url
+
+    raise Exception(
+        f'Unexpected status code {response.status_code} '
+        f'trying to reach url={url}.'
+    )
+
+
+def sanitize_link(url: str) -> str:
+    # TODO: disable on testing
+    url = _validate_url(url)
 
     if '?' in url:
         url, _ = url.split('?')

@@ -49,8 +49,10 @@ class TestLinkViewSet:
     def test_links_get_endpoint_for_existing_users(
         self, setup_links_instances
     ):
+        first_user_id = str(User.objects.first().id)
+        last_user_id = str(User.objects.last().id)
         expected_users_links = {
-            '1': [
+            first_user_id: [
                 {
                     'original_link': 'https://www.redhat.com/sysadmin/getting-started-socat'
                 },
@@ -59,7 +61,7 @@ class TestLinkViewSet:
                 },
                 {'original_link': 'https://github.com/curl/curl'},
             ],
-            '2': [
+            last_user_id: [
                 {
                     'original_link': 'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210'
                 },
@@ -73,7 +75,6 @@ class TestLinkViewSet:
         }
         for user_id in setup_links_instances.keys():
             for index, link in enumerate(setup_links_instances[user_id]):
-                print(link)
                 expected_link = expected_users_links[user_id][index][
                     'original_link'
                 ]
