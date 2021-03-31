@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime, timedelta
+from unittest import mock
 import json
 import logging
 
@@ -82,7 +83,10 @@ def uuids():
 
 
 @pytest.fixture
-def setup_links_instances(links_list, setup_user_instances, uuids):
+@mock.patch('core.services.links.resolve_url', return_value='')
+def setup_links_instances(
+    mocked_resolve_url, links_list, setup_user_instances, uuids
+):
     User = get_user_model()
     assert User.objects.count() == 2
 
