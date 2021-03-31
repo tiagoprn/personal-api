@@ -9,7 +9,12 @@ import shortuuid
 logger = logging.getLogger(__name__)
 
 
-def _validate_url(url: str) -> str:
+def resolve_url(url: str) -> str:
+    """
+    Make a real request to the URL, allowing redirects.
+    That way we enable getting the real one, in case of
+    the original has been shortened from another service.
+    """
     response = requests.get(url, allow_redirects=True)
 
     if response.status_code == 200:
@@ -22,8 +27,7 @@ def _validate_url(url: str) -> str:
 
 
 def sanitize_link(url: str) -> str:
-    # TODO: disable on testing
-    url = _validate_url(url)
+    url = resolve_url(url)
 
     if '?' in url:
         url, _ = url.split('?')
