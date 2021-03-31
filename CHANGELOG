@@ -36,14 +36,7 @@ Adding URL model
 	- [x] DELETE all (should not work)
 		- [x] PATCH
 		- [x] DELETE (single)
-- [ ] Run the full test suite again and fix tests below (if DNS errors occur, change to my 4G Hotspot and try again).
-```
-Results (329.42s):
-      67 passed
-       2 failed
-         - personal_api/core/tests/test_views.py:49 TestLinkViewSet.test_links_get_endpoint_for_existing_users
-         - personal_api/personal_api/tests/services/test_links.py:17 test_sanitize_link
-```
+- [x] Run the full test suite again and fix tests.
 - [ ] Change postgres database to a ram postgres container to aid on fast tests.
 - [ ] Run style-check and lint and make the needed fixes
 - [ ] change user.id type to UUID (today it is an integer)
