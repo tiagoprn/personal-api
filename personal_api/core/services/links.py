@@ -27,15 +27,18 @@ def resolve_url(url: str) -> str:
 
 
 def sanitize_link(url: str) -> str:
-    url = resolve_url(url)
+    resolved_url = resolve_url(url)
 
-    if '?' in url:
-        url, _ = url.split('?')
+    if not resolved_url:
+        resolved_url = url
 
-    if url.endswith('/'):
-        url = url[:-1]
+    if '?' in resolved_url:
+        resolved_url, _ = resolved_url.split('?')
 
-    return url
+    if resolved_url.endswith('/'):
+        resolved_url = resolved_url[:-1]
+
+    return resolved_url
 
 
 def generate_shortened_hash(uid: uuid.UUID) -> str:

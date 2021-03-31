@@ -6,105 +6,100 @@ from freezegun import freeze_time
 from core.models import Link
 
 
-# @pytest.mark.vcr
 @pytest.mark.django_db
-@pytest.mark.parametrize(
-    'days,frozen_time,url_names',
-    [
-        (5, '2020/01/05 08:00:00', ['bing', 'ubuntu']),
-        (
-            10,
-            '2020/01/10 08:00:00',
-            ['bing', 'ubuntu', 'destinationlinux', 'jupiterbroadcasting'],
-        ),
-        (2, '2020/01/25 08:00:00', ['trello']),
-        (
-            25,
-            '2020/01/25 08:00:00',
-            [
-                'bing',
+class TestFilter:
+    @pytest.mark.parametrize(
+        'days,frozen_time,url_names',
+        [
+            (5, '2020/01/05 08:00:00', ['bing', 'ubuntu']),
+            (
+                10,
+                '2020/01/10 08:00:00',
+                ['bing', 'ubuntu', 'destinationlinux', 'jupiterbroadcasting'],
+            ),
+            (2, '2020/01/25 08:00:00', ['trello']),
+            (
+                25,
+                '2020/01/25 08:00:00',
+                [
+                    'bing',
+                    'ubuntu',
+                    'destinationlinux',
+                    'jupiterbroadcasting',
+                    'github',
+                    'gitlab',
+                    'jira',
+                    'atlassian',
+                    'trello',
+                ],
+            ),
+        ],
+    )  # pylint: disable=too-many-arguments
+    def test_recently_updated_filter(
+        self, setup_model_instances, days, frozen_time, url_names
+    ):  # pylint: disable=unused-argument
+        User = get_user_model()
+        assert User.objects.count() == 2
+        assert Link.objects.count() == 9
+
+        with freeze_time(frozen_time):
+            recently_updated_urls_names = Link.objects.recently_updated(
+                days=days
+            ).values_list('name', flat=True)
+            assert set(recently_updated_urls_names) == set(url_names)
+
+    def test_from_user_filter(
+        self, setup_model_instances
+    ):  # pylint: disable=unused-argument
+        User = get_user_model()
+        assert User.objects.count() == 2
+        assert Link.objects.count() == 9
+
+        usernames = ['atrocitus', 'haljordan']
+        expected_user_urls = {
+            'atrocitus': [
                 'ubuntu',
+                'bing',
                 'destinationlinux',
                 'jupiterbroadcasting',
-                'github',
-                'gitlab',
-                'jira',
-                'atlassian',
-                'trello',
             ],
-        ),
-    ],
-)  # pylint: disable=too-many-arguments
-def test_recently_updated_filter(
-    setup_model_instances, days, frozen_time, url_names
-):  # pylint: disable=unused-argument
-    User = get_user_model()
-    assert User.objects.count() == 2
-    assert Link.objects.count() == 9
-
-    with freeze_time(frozen_time):
-        recently_updated_urls_names = Link.objects.recently_updated(
-            days=days
-        ).values_list('name', flat=True)
-        assert set(recently_updated_urls_names) == set(url_names)
-
-
-@pytest.mark.django_db
-# @pytest.mark.vcr
-def test_from_user_filter(
-    setup_model_instances
-):  # pylint: disable=unused-argument
-    User = get_user_model()
-    assert User.objects.count() == 2
-    assert Link.objects.count() == 9
-
-    usernames = ['atrocitus', 'haljordan']
-    expected_user_urls = {
-        'atrocitus': [
-            'ubuntu',
-            'bing',
-            'destinationlinux',
-            'jupiterbroadcasting',
-        ],
-        'haljordan': ['github', 'gitlab', 'jira', 'atlassian', 'trello'],
-    }
-    for username in usernames:
-        user = User.objects.filter(username=username).first()
-        urls = Link.objects.from_user(user=user).values_list('name', flat=True)
-        assert set(urls) == set(expected_user_urls[username])
-
-
-@pytest.mark.django_db
-# @pytest.mark.vcr
-def test_most_recent_and_from_user_filters_together(
-    setup_model_instances
-):  # pylint: disable=unused-argument
-    User = get_user_model()
-    assert User.objects.count() == 2
-    assert Link.objects.count() == 9
-
-    usernames = ['atrocitus', 'haljordan']
-    most_recent_filters = {
-        'atrocitus': {'frozen_time': '2020/01/09 08:00:00', 'days': 5},
-        'haljordan': {'frozen_time': '2020/01/25 08:00:00', 'days': 5},
-    }
-    expected_user_urls = {
-        'atrocitus': ['destinationlinux', 'jupiterbroadcasting'],
-        'haljordan': ['atlassian', 'trello'],
-    }
-    for username in usernames:
-        user = User.objects.filter(username=username).first()
-        frozen_time = most_recent_filters[username]['frozen_time']
-        days = most_recent_filters[username]['days']
-        with freeze_time(frozen_time):
-            urls = Link.objects.recently_updated(
-                days=days, user=user
-            ).values_list('name', flat=True)
+            'haljordan': ['github', 'gitlab', 'jira', 'atlassian', 'trello'],
+        }
+        for username in usernames:
+            user = User.objects.filter(username=username).first()
+            urls = Link.objects.from_user(user=user).values_list(
+                'name', flat=True
+            )
             assert set(urls) == set(expected_user_urls[username])
 
+    def test_most_recent_and_from_user_filters_together(
+        self, setup_model_instances
+    ):  # pylint: disable=unused-argument
+        User = get_user_model()
+        assert User.objects.count() == 2
+        assert Link.objects.count() == 9
+
+        usernames = ['atrocitus', 'haljordan']
+        most_recent_filters = {
+            'atrocitus': {'frozen_time': '2020/01/09 08:00:00', 'days': 5},
+            'haljordan': {'frozen_time': '2020/01/25 08:00:00', 'days': 5},
+        }
+        expected_user_urls = {
+            'atrocitus': ['destinationlinux', 'jupiterbroadcasting'],
+            'haljordan': ['atlassian', 'trello'],
+        }
+        for username in usernames:
+            user = User.objects.filter(username=username).first()
+            frozen_time = most_recent_filters[username]['frozen_time']
+            days = most_recent_filters[username]['days']
+            with freeze_time(frozen_time):
+                urls = Link.objects.recently_updated(
+                    days=days, user=user
+                ).values_list('name', flat=True)
+                assert set(urls) == set(expected_user_urls[username])
+
 
 @pytest.mark.django_db
-# @pytest.mark.vcr
 def test_search_by_partial_shortened_hash(
     setup_model_instances
 ):  # pylint: disable=unused-argument
@@ -148,7 +143,6 @@ def test_search_by_partial_shortened_hash(
 
 
 @pytest.mark.django_db
-# @pytest.mark.vcr
 def test_get_domain_property_value(
     setup_model_instances
 ):  # pylint: disable=unused-argument
@@ -176,7 +170,6 @@ def test_get_domain_property_value(
 
 
 @pytest.mark.django_db
-# @pytest.mark.vcr
 def test_set_name_from_url_when_name_empty(
     setup_user_instances
 ):  # pylint: disable=unused-argument
