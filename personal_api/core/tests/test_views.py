@@ -52,22 +52,38 @@ class TestLinkViewSet:
         expected_users_links = {
             first_user_id: [
                 {
-                    'original_link': 'https://www.redhat.com/sysadmin/getting-started-socat'
+                    'original_link': (
+                        'https://www.redhat.com/sysadmin/'
+                        'getting-started-socat'
+                    )
                 },
                 {
-                    'original_link': 'https://www.django-rest-framework.org/api-guide/viewsets/'
+                    'original_link': (
+                        'https://www.django-rest-framew'
+                        'ork.org/api-guide/viewsets/'
+                    )
                 },
                 {'original_link': 'https://github.com/curl/curl'},
             ],
             last_user_id: [
                 {
-                    'original_link': 'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210'
+                    'original_link': (
+                        'https://medium.com/aubergine-solutions'
+                        '/viewsets-in-django-rest-framework-25bb0110c210'
+                    )
                 },
                 {
-                    'original_link': 'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html'
+                    'original_link': (
+                        'https://harrymoreno.com/2019/0'
+                        '6/12/Overriding-Django-Rest-Framework-viewsets.html'
+                    )
                 },
                 {
-                    'original_link': 'https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform'
+                    'original_link': (
+                        'https://dropbox.tech/infrastructure/atlas'
+                        '--our-journey-from-a-python-monolith-'
+                        'to-a-managed-platform'
+                    )
                 },
             ],
         }
@@ -119,13 +135,19 @@ class TestLinkViewSet:
                 'haljordan',
                 'name',
                 'dropbox',
-                'https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
+                (
+                    'https://dropbox.tech/infrastructure/atlas--our-'
+                    'journey-from-a-python-monolith-to-a-managed-platform'
+                ),
             ),
             (
                 'haljordan',
                 'name',
                 'monolith',
-                'https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
+                (
+                    'https://dropbox.tech/infrastructure/atlas--our-journey-'
+                    'from-a-python-monolith-to-a-managed-platform'
+                ),
             ),
             (
                 'atrocitus',
@@ -136,14 +158,26 @@ class TestLinkViewSet:
             (
                 'haljordan',
                 'original_link',
-                'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
-                'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
+                (
+                    'https://medium.com/aubergine-solutions/viewsets-in-'
+                    'django-rest-framework-25bb0110c210'
+                ),
+                (
+                    'https://medium.com/aubergine-solutions/viewsets-in-'
+                    'django-rest-framework-25bb0110c210'
+                ),
             ),
             (
                 'haljordan',
                 'sanitized_link',
-                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
-                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
+                (
+                    'https://harrymoreno.com/2019/06/12/Overriding-'
+                    'Django-Rest-Framework-viewsets.html'
+                ),
+                (
+                    'https://harrymoreno.com/2019/06/12/Overriding-Django-'
+                    'Rest-Framework-viewsets.html'
+                ),
             ),
             (
                 'atrocitus',
@@ -164,13 +198,19 @@ class TestLinkViewSet:
                 'haljordan',
                 'shortened_hash',
                 'LpVcZWxwx6aAz9WpnriKhP',
-                'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
+                (
+                    'https://medium.com/aubergine-solutions/viewsets-'
+                    'in-django-rest-framework-25bb0110c210'
+                ),
             ),
             (
                 'haljordan',
                 'shortened_hash',
                 'UAziYkWY2LBRfZzQVh92hz',
-                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
+                (
+                    'https://harrymoreno.com/2019/06/12/Overriding-'
+                    'Django-Rest-Framework-viewsets.html'
+                ),
             ),
             (
                 'atrocitus',
@@ -182,13 +222,19 @@ class TestLinkViewSet:
                 'haljordan',
                 'shortened_hash',
                 'LpV',
-                'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
+                (
+                    'https://medium.com/aubergine-solutions/viewsets-in-'
+                    'django-rest-framework-25bb0110c210'
+                ),
             ),
             (
                 'haljordan',
                 'shortened_hash',
                 'UAz',
-                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
+                (
+                    'https://harrymoreno.com/2019/06/12/Overriding-Django-'
+                    'Rest-Framework-viewsets.html'
+                ),
             ),
             (
                 'atrocitus',
@@ -200,13 +246,19 @@ class TestLinkViewSet:
                 'haljordan',
                 'id',
                 '69c082fe-fa66-4f5e-b784-84be5d5a1817',
-                'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
+                (
+                    'https://medium.com/aubergine-solutions/viewsets-in-'
+                    'django-rest-framework-25bb0110c210'
+                ),
             ),
             (
                 'haljordan',
                 'id',
                 '9304e4a9-93fc-4e97-9177-32e8518782e8',
-                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
+                (
+                    'https://harrymoreno.com/2019/06/12/Overriding-Django-'
+                    'Rest-Framework-viewsets.html'
+                ),
             ),
             (
                 'atrocitus',
@@ -218,13 +270,21 @@ class TestLinkViewSet:
                 'atrocitus',
                 'max_created_at',
                 '2021-01-16T00:00:00Z',
-                'https://www.redhat.com/sysadmin/getting-started-socat,https://www.django-rest-framework.org/api-guide/viewsets/',
+                (
+                    'https://www.redhat.com/sysadmin/getting-started-socat,'
+                    'https://www.django-rest-framework.org/api-guide/viewsets/'
+                ),
             ),
             (
                 'haljordan',
                 'min_created_at,max_created_at',
                 '2021-01-13T00:00:00Z,2021-01-19T23:59:59Z',
-                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html,https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
+                (
+                    'https://harrymoreno.com/2019/06/12/Overriding-Django-'
+                    'Rest-Framework-viewsets.html,https://dropbox.tech/infr'
+                    'astructure/atlas--our-journey-from-a-python-monolith-'
+                    'to-a-managed-platform'
+                ),
             ),
             (
                 'atrocitus',
@@ -236,13 +296,22 @@ class TestLinkViewSet:
                 'atrocitus',
                 'max_updated_at',
                 '2021-01-16T00:00:00Z',
-                'https://www.redhat.com/sysadmin/getting-started-socat,https://www.django-rest-framework.org/api-guide/viewsets/',
+                (
+                    'https://www.redhat.com/sysadmin/getting-started-'
+                    'socat,https://www.django-rest-framework.org/'
+                    'api-guide/viewsets/'
+                ),
             ),
             (
                 'haljordan',
                 'min_updated_at,max_updated_at',
                 '2021-01-13T00:00:00Z,2021-01-19T23:59:59Z',
-                'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html,https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
+                (
+                    'https://harrymoreno.com/2019/06/12/Overriding-'
+                    'Django-Rest-Framework-viewsets.html,https://dropbox.tech'
+                    '/infrastructure/atlas--our-journey-from-a-python-'
+                    'monolith-to-a-managed-platform'
+                ),
             ),
         ],
     )

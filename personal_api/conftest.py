@@ -56,11 +56,20 @@ def anonymous_api_client():
 def links_list():
     return [
         'https://www.redhat.com/sysadmin/getting-started-socat',
-        'https://medium.com/aubergine-solutions/viewsets-in-django-rest-framework-25bb0110c210',
+        (
+            'https://medium.com/aubergine-solutions/viewsets-in-'
+            'django-rest-framework-25bb0110c210'
+        ),
         'https://www.django-rest-framework.org/api-guide/viewsets/',
-        'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-Framework-viewsets.html',
+        (
+            'https://harrymoreno.com/2019/06/12/Overriding-Django-Rest-'
+            'Framework-viewsets.html'
+        ),
         'https://github.com/curl/curl',
-        'https://dropbox.tech/infrastructure/atlas--our-journey-from-a-python-monolith-to-a-managed-platform',
+        (
+            'https://dropbox.tech/infrastructure/atlas--our-journey-from-'
+            'a-python-monolith-to-a-managed-platform'
+        ),
     ]
 
 
