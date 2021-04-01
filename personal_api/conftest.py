@@ -1,12 +1,12 @@
+import json
+import logging
 import uuid
 from datetime import datetime, timedelta
 from unittest import mock
-import json
-import logging
-
-import pytest
 
 from django.contrib.auth import get_user_model
+
+import pytest
 from freezegun import freeze_time
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import RefreshToken

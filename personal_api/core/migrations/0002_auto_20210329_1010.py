@@ -5,14 +5,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('core', '0001_initial'),
-    ]
+    dependencies = [('core', '0001_initial')]
 
     operations = [
         migrations.AlterField(
             model_name='link',
             name='name',
-            field=models.CharField(blank=True, max_length=150, null=True, unique=True),
-        ),
+            field=models.CharField(
+                blank=True, max_length=150, null=True, unique=True
+            ),
+        )
     ]

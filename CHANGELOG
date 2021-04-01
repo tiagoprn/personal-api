@@ -37,7 +37,6 @@ Adding URL model
 		- [x] PATCH
 		- [x] DELETE (single)
 - [x] Run the full test suite again and fix tests.
-- [ ] Change postgres database to a ram postgres container to aid on fast tests.
 - [ ] Run style-check and lint and make the needed fixes
 - [ ] change user.id type to UUID (today it is an integer)
 - [ ] drf-yasg broke (no more redocs)
