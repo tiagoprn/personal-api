@@ -345,9 +345,6 @@ class TestLinkViewSet:
 
         response = client.get(url)
 
-        if response.status_code != 200:
-            __import__('ipdb').set_trace()
-
         assert response.status_code == 200
 
         json_response = response.json()
