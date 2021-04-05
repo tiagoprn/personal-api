@@ -104,13 +104,15 @@ def setup_links_instances(
 
     users_links = {}
 
+    all_users = User.objects.all().order_by('-username')
+
     with open('/tmp/temptestfile.txt', 'w+') as temp_test_file:
         reference_date = datetime.strptime(
             '2021-01-01 08:00:00', '%Y-%m-%d %H:%M:%S'
         )
         for index, url in enumerate(links_list):
             is_even = index % 2 == 0
-            user = User.objects.first() if is_even else User.objects.last()
+            user = all_users.first() if is_even else all_users.last()
 
             reference_date = reference_date + timedelta(days=3)
             frozen_timestamp = reference_date.strftime('%Y-%m-%d %H:%M:%S')

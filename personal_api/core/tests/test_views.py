@@ -379,7 +379,6 @@ class TestLinkViewSet:
             url = f'/core/api/links/?{field_name}={field_value}'
 
         response = client.get(url)
-
         assert response.status_code == 200
 
         json_response = response.json()
