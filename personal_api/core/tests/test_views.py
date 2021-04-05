@@ -1,5 +1,7 @@
 # pylint: disable=too-many-lines,too-many-arguments,unused-argument
 
+from datetime import datetime
+
 from django.contrib.auth import get_user_model
 
 import pytest
@@ -270,6 +272,48 @@ class TestLinkViewSet:
             ),
             (
                 'atrocitus',
+                'min_updated_at',
+                '2021-01-16T00:00:00Z',
+                'https://github.com/curl/curl',
+            ),
+        ],
+    )
+    def test_links_get_single_with_filter_endpoint_for_existing_user(
+        self,
+        setup_links_instances,
+        username,
+        field_name,
+        field_value,
+        expected_original_link,
+    ):
+        user = User.objects.filter(username=username).first()
+        client = self.authenticated_api_client(user=user)
+
+        if field_name == 'id':
+            url = f'/core/api/links/{field_value}/'
+        else:
+            url = f'/core/api/links/?{field_name}={field_value}'
+
+        response = client.get(url)
+
+        assert response.status_code == 200
+
+        json_response = response.json()
+
+        if field_name == 'id':
+            assert json_response['id'] == field_value
+            original_link = json_response['original_link']
+            assert original_link == expected_original_link
+        else:
+            assert json_response['count'] == 1
+            original_link = json_response['results'][0]['original_link']
+            assert original_link == expected_original_link
+
+    @pytest.mark.parametrize(
+        'username,field_name,field_value,expected_original_link',
+        [
+            (
+                'atrocitus',
                 'max_created_at',
                 '2021-01-16T00:00:00Z',
                 (
@@ -287,12 +331,6 @@ class TestLinkViewSet:
                     'astructure/atlas--our-journey-from-a-python-monolith-'
                     'to-a-managed-platform'
                 ),
-            ),
-            (
-                'atrocitus',
-                'min_updated_at',
-                '2021-01-16T00:00:00Z',
-                'https://github.com/curl/curl',
             ),
             (
                 'atrocitus',
@@ -317,7 +355,7 @@ class TestLinkViewSet:
             ),
         ],
     )
-    def test_links_get_with_filter_endpoint_for_existing_user(
+    def test_links_get_multiple_with_filter_endpoint_for_existing_user(
         self,
         setup_links_instances,
         username,
@@ -330,18 +368,15 @@ class TestLinkViewSet:
 
         date_range_field = bool(',' in field_name)
 
-        if field_name == 'id':
-            url = f'/core/api/links/{field_value}/'
+        if date_range_field:
+            names = field_name.split(',')
+            values = field_value.split(',')
+            url = (
+                f'/core/api/links/?{names[0]}={values[0]}'
+                f'&{names[1]}={values[1]}'
+            )
         else:
-            if date_range_field:
-                names = field_name.split(',')
-                values = field_value.split(',')
-                url = (
-                    f'/core/api/links/?{names[0]}={values[0]}'
-                    f'&{names[1]}={values[1]}'
-                )
-            else:
-                url = f'/core/api/links/?{field_name}={field_value}'
+            url = f'/core/api/links/?{field_name}={field_value}'
 
         response = client.get(url)
 
@@ -349,29 +384,13 @@ class TestLinkViewSet:
 
         json_response = response.json()
 
-        if field_name == 'id':
-            assert json_response['id'] == field_value
-            original_link = json_response['original_link']
-            assert original_link == expected_original_link
-            return
+        expected_links = expected_original_link.split(',')
+        assert json_response['count'] == len(expected_links)
 
-        multiple_expected_original_links = bool(',' in expected_original_link)
-
-        if not multiple_expected_original_links:
-            assert json_response['count'] == 1
-            original_link = json_response['results'][0]['original_link']
-            assert original_link == expected_original_link
-            return
-
-        if multiple_expected_original_links:
-            expected_links = expected_original_link.split(',')
-            assert json_response['count'] == len(expected_links)
-
-            links = [
-                result['original_link'] for result in json_response['results']
-            ]
-            assert set(links) == set(expected_links)
-            return
+        links = [
+            result['original_link'] for result in json_response['results']
+        ]
+        assert set(links) == set(expected_links)
 
     @pytest.mark.parametrize(
         'username, url',

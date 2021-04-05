@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from unittest import mock
 
 from django.contrib.auth import get_user_model
+from django.core.serializers.json import DjangoJSONEncoder
 
 import pytest
 from freezegun import freeze_time
@@ -125,7 +126,7 @@ def setup_links_instances(
 
             temp_test_file.write(
                 f'Adding link for username={user.username}: '
-                f'{json.dumps(serialized_url_dict)}\n'
+                f'{json.dumps(serialized_url_dict, cls=DjangoJSONEncoder)}\n'
             )
 
             users_links[str(user.id)].append(serialized_url_dict)
