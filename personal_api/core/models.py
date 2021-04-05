@@ -14,6 +14,8 @@ logger = logging.getLogger(__name__)
 
 
 class CustomUser(AbstractUser):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+
     def __str__(self):
         return self.username
 
