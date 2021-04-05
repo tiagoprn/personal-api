@@ -1,3 +1,5 @@
+# pylint: disable=redefined-outer-name,unused-argument
+
 import json
 import logging
 import uuid

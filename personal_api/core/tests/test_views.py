@@ -1,3 +1,5 @@
+# pylint: disable=too-many-lines,too-many-arguments,unused-argument
+
 from django.contrib.auth import get_user_model
 
 import pytest
@@ -661,5 +663,5 @@ class TestLinkViewSet:
         json_response = response.json()
         assert json_response['count'] == 3
 
-        response = client.delete(f'/core/api/links/')
+        response = client.delete('/core/api/links/')
         assert response.status_code == 405
