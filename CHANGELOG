@@ -37,8 +37,9 @@ Adding URL model
 		- [x] PATCH
 		- [x] DELETE (single)
 - [x] Run the full test suite again and fix tests.
-- [ ] Run style-check and lint and make the needed fixes
-- [ ] change user.id type to UUID (today it is an integer)
+- [x] Run style-check and lint and make the needed fixes
+- [x] change user.id type to UUID (today it is an integer)
+- [ ] fix tests failing due to new generated user database (after finished, make sure that creating another database the previsibility is kept)
 - [ ] drf-yasg broke (no more redocs)
 
 ---
