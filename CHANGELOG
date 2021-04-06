@@ -39,8 +39,10 @@ Adding URL model
 - [x] Run the full test suite again and fix tests.
 - [x] Run style-check and lint and make the needed fixes
 - [x] change user.id type to UUID (today it is an integer)
-- [ ] fix tests failing due to new generated user database (after finished, make sure that creating another database the previsibility is kept)
+- [x] fix tests failing due to new generated user database (after finished, make sure that creating another database the previsibility is kept)
 - [ ] drf-yasg broke (no more redocs)
+- [ ] test the app container with docker and docker-compose
+- [ ] on a VM: test the app container with podman, podman-compose and buildah
 
 ---
 
