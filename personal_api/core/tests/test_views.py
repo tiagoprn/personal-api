@@ -1,7 +1,5 @@
 # pylint: disable=too-many-lines,too-many-arguments,unused-argument
 
-from datetime import datetime
-
 from django.contrib.auth import get_user_model
 
 import pytest
