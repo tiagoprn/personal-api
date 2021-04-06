@@ -49,8 +49,9 @@ class TestLinkViewSet:
     def test_links_get_endpoint_for_existing_users(
         self, setup_links_instances
     ):
-        first_user_id = str(User.objects.first().id)
-        last_user_id = str(User.objects.last().id)
+        all_users = User.objects.all().order_by('username')
+        first_user_id = str(all_users.first().id)
+        last_user_id = str(all_users.last().id)
         expected_users_links = {
             first_user_id: [
                 {
@@ -102,27 +103,27 @@ class TestLinkViewSet:
             }
             assert set(users_links[user_id]) == expected_links_set
 
-        # for user in User.objects.all():
-        #     client = self.authenticated_api_client(user=user)
-        #     response = client.get('/core/api/links/')
-        #     assert response.status_code == 200
+        for user in all_users:
+            client = self.authenticated_api_client(user=user)
+            response = client.get('/core/api/links/')
+            assert response.status_code == 200
 
-        #     json_response = response.json()
-        #     assert json_response['count'] == 3
+            json_response = response.json()
+            assert json_response['count'] == 3
 
-        #     users = set(result['user'] for result in json_response['results'])
-        #     assert users == {user.id}
+            users = set(result['user'] for result in json_response['results'])
+            assert users == {str(user.id)}
 
-        #     links = [
-        #         result['original_link'] for result in json_response['results']
-        #     ]
+            links = [
+                result['original_link'] for result in json_response['results']
+            ]
 
-        #     expected_links = [
-        #         link['original_link']
-        #         for link in expected_users_links[str(user.id)]
-        #     ]
+            expected_links = [
+                link['original_link']
+                for link in expected_users_links[str(user.id)]
+            ]
 
-        #     assert set(links) == set(expected_links)
+            assert set(links) == set(expected_links)
 
     @pytest.mark.parametrize(
         'username,field_name,field_value,expected_original_link',
