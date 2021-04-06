@@ -104,7 +104,7 @@ def setup_links_instances(
 
     users_links = {}
 
-    all_users = User.objects.all().order_by('-username')
+    all_users = User.objects.all().order_by('username')
 
     with open('/tmp/temptestfile.txt', 'w+') as temp_test_file:
         reference_date = datetime.strptime(
