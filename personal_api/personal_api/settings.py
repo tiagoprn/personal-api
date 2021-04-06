@@ -7,6 +7,8 @@ from decouple import config
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+PROJECT_ROOT = os.path.dirname(BASE_DIR)
+
 SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
@@ -121,8 +123,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 # STATIC_URL = 'https://domain.app/static/'
-STATIC_URL = '/static/'
+STATIC_URL = 'http://localhost:5000/'
 
 # Logging configuration, as JSON, to stdout.
 LOG_LEVEL = config('LOG_LEVEL', default='INFO')

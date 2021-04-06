@@ -40,7 +40,12 @@ Adding URL model
 - [x] Run style-check and lint and make the needed fixes
 - [x] change user.id type to UUID (today it is an integer)
 - [x] fix tests failing due to new generated user database (after finished, make sure that creating another database the previsibility is kept)
-- [ ] drf-yasg broke (no more redocs)
+- [ ] drf-yasg broke (no more redocs) - this is due to the static files
+	- [ ] Create a Makefile command to generate the static files directory
+	- [ ] Create a docker-compose nginx container binded to local port 5000 to serve the static files directory
+	- [ ] Access localhost:8000 through the browser
+	- [ ] Update this project's README with the new commands above
+
 - [ ] test the app container with docker and docker-compose
 - [ ] on a VM: test the app container with podman, podman-compose and buildah
 

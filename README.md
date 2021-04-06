@@ -34,7 +34,21 @@ $ make superuser
 
 ### Documentation
 
-You can access the API documentation by running the application server:
+You can access the API documentation by
+
+1) Generating the static files directory:
+
+```
+$ cd personal_api && python manage.py collectstatic
+```
+
+2) Raising the container to serve the static files:
+
+```
+$ make run-static-server
+```
+
+3) running the application server:
 
 ```
 $ make runserver-dev
