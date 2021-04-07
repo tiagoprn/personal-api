@@ -35,6 +35,9 @@ createsuperuser:  ## Create the django admin superuser
 create-admin-superuser-without-input:  ## Create a django admin superuser non-interactively. E.g.: make create-admin-superuser-without-input username=admin1 password=12345678 email=admin1@gmail.com
 	$(DJANGO_CMD) create_admin_superuser_without_input --username $(username) --password $(password) --noinput --email '$(email)'
 
+create-test-admin-superuser:  ## Create a test django admin superuser, named admin1
+	@$(DJANGO_CMD) create_admin_superuser_without_input --username admin1 --password 12345678 --noinput --email 'admin1@gmail.com' || true
+
 test: clean  ## Run the test suite
 	py.test personal_api/ --ds=$(SETTINGS) -s -vvv
 
@@ -109,8 +112,7 @@ local-refresh-access-token:  ## Refresh the authentication token for the endpoin
 local-test-user-token:  ## Use greetings' protected endpoint to test the authentication token. E.g.: make local-test-user-token token=XXXXXX
 	@curl http://localhost:8000/core/greetings/ -H "Authorization: Bearer $(token)"
 
-local-links-csv-import-test:  ## Imports the sample csv into the local database
-	@$(DJANGO_CMD) create_admin_superuser_without_input --username admin1 --password 12345678 --noinput --email 'admin1@gmail.com' || true
+local-links-csv-import-test: create-test-admin-superuser  ## Imports the sample csv into the local database
 	@$(DJANGO_CMD) import_links_from_csv --username=admin1 --csv-file-path=$(PROJECT_ROOT)/personal_api/core/tests/assets/links.csv
 
 local-test-get-links:  ## Get all links. E.g.: make local-test-get-links token=XXXXXX
