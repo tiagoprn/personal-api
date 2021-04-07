@@ -64,7 +64,7 @@ shell: clean  ## Run a django shell
 runserver: clean migrate  ## Run production (gunicorn) web server
 	@cd personal_api && gunicorn --worker-tmp-dir /dev/shm --log-level INFO --workers=1 --threads=2 --worker-class=gthread --bind 0.0.0.0:8000 personal_api.wsgi:application
 
-runserver-dev: clean migrate  ## Run development web server
+runserver-dev: clean runstatic-dev migrate   ## Run development web server
 	set -a && source .env && set +a && $(DJANGO_CMD) runserver 0.0.0.0:8000
 
 runworker: clean migrate  ## Run production celery worker
@@ -76,7 +76,7 @@ runworker-dev: clean migrate  ## Run development celery worker
 static: clean  ## Create frontend (Django Admin, Swagger, etc...) static files
 	@rm -fr static || true && mkdir static && $(DJANGO_CMD) collectstatic
 
-runstatic-dev: clean  ## Run local server to serve frontend (Django Admin, Swagger, etc...) static files
+runstatic-dev: clean static  ## Run local server to serve frontend (Django Admin, Swagger, etc...) static files
 	@docker-compose up -d nginx
 
 container-build: clean  ## create the docker image

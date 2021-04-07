@@ -36,25 +36,15 @@ $ make superuser
 
 You can access the API documentation by
 
-1) Generating the static files directory:
-
-```
-$ make static
-```
-
-2) Raising the container to serve the static files:
-
-```
-$ make runstatic-dev
-```
-
-3) running the application server:
+1) running the application server:
 
 ```
 $ make runserver-dev
 ```
 
-and accessing:
+This will generate static files, raise an nginx container to serve the frontend static files, and start the local app server.
+
+To interact the API, you can use redoc or swagger. They are available at:
 
 - [redoc](<http://localhost:8000/>)
 - [swagger](<http://localhost:8000/swagger/>)
