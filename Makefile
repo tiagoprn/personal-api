@@ -73,8 +73,11 @@ runworker: clean migrate  ## Run production celery worker
 runworker-dev: clean migrate  ## Run development celery worker
 	@set -a && source .env && set +a && cd personal_api && celery -A personal_api worker --loglevel=$$CELERY_LOG_LEVEL --pool=solo --concurrency=1 --autoscale=1,1 --max-tasks-per-child=10000 --without-heartbeat --without-gossip --without-mingle --queues=$$WORKER_QUEUES
 
-static: clean  ## Create static files
+static: clean  ## Create frontend (Django Admin, Swagger, etc...) static files
 	@rm -fr static || true && mkdir static && $(DJANGO_CMD) collectstatic
+
+runstatic-dev: clean  ## Run local server to serve frontend (Django Admin, Swagger, etc...) static files
+	@docker-compose up -d nginx
 
 container-build: clean  ## create the docker image
 	@./build-container.sh

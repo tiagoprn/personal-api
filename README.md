@@ -39,13 +39,13 @@ You can access the API documentation by
 1) Generating the static files directory:
 
 ```
-$ cd personal_api && python manage.py collectstatic
+$ make static
 ```
 
 2) Raising the container to serve the static files:
 
 ```
-$ make run-static-server
+$ make runstatic-dev
 ```
 
 3) running the application server:

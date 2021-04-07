@@ -9,3 +9,12 @@ services:
       - 8000:8000/tcp
     env_file:
       - .env
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-personal-api-static
+    network_mode: bridge
+    restart: unless-stopped
+    ports:
+      - 5000:80
+    volumes:
+      - ./static:/usr/share/nginx/html:ro
