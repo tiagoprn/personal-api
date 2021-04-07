@@ -40,15 +40,17 @@ Adding URL model
 - [x] Run style-check and lint and make the needed fixes
 - [x] change user.id type to UUID (today it is an integer)
 - [x] fix tests failing due to new generated user database (after finished, make sure that creating another database the previsibility is kept)
-- [ ] drf-yasg broke (no more redocs) - this is due to the static files
+- [x] drf-yasg broke (no more redocs) - this is due to the static files
 	- [x] Create a Makefile command to generate the static files directory
 	- [x] Create a docker-compose nginx container binded to local port 5000 to serve the static files directory
 	- [x] Access localhost:8000 through the browser
-	- [ ] Update this project's README with the new commands above
+	- [x] Update this project's README with the new commands above
 
-- [ ] test the app container with docker and docker-compose
-- [ ] on a VM: test the app container with podman, podman-compose and buildah
+- [ ] FUTURE (open separate issues):
+	- [ ] Change from drf-yasg to <https://github.com/tfranzel/drf-spectacular> (it supports simplejwt between other features)
+	- [ ] Test drf-spectacular with swagger - maybe I will need to configure swagger (drf-spectacular) for the Link model
+	- [ ] test the app container with docker and docker-compose
+	- [ ] on a VM: test the app container with podman, podman-compose and buildah
 
 ---
 
-- [ ] FUTURE: Configure swagger for the Link model
