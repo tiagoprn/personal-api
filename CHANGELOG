@@ -1,56 +1,27 @@
-Adding URL model
+# URL Shortener API
 
-- [x] Add the URL model on models.py
-- [x] Add a custom user model
-- [x] Add the user as a foreign key to the URL model
-- [x] Test the the api token generation is working with the new custom user model
-- [x] Write tests to validate api token generation and refresh
-- [x] Create a manager to `models.Link` so that it can get model instances from a given user.
-- [x] Add `tests/test_models.py` - using real model instances in this case, not the model factories - to validate the implementation. Test `most_recent` and `from_user` separately and together
-- [x] Implement the business methods on `core.services.urls`
-- [x] Add manage command to populate the database with test data
-- [x] Run `python personal_api/manage.py populate_test_data` and fix the error where the signal is not called, until it successfully is
-- [x] Fix 503 errors on failing tests
-- [x] Fix failing test (ignore the one that just was not implemented)
-- [x] Finish implementation of the failing tests (marked with "TODO" -`test_models.py`).
-- [x] Move code from `personal_api/views.py` to `personal_api/core/views.py`, and the corresponding tests.
-- [x] Add view, serializer and filter classes to the Link model
-- [x] Rename the Url model to Link
-- [x] Create a function to set name from a link
-- [x] Create a management command to populate links from a CSV, leveraging pandas to do that.
-- [x] Manually test healthcheck API liveness/readiness endpoints (curl)
-- [x] Make django not return the default HTML page on errors - create custom middleware to return JSON on exceptions
-- [x] Finish implementation of the Link ModelViewSet (TODOs at `/storage/src/personal-api/personal_api/core/views.py`)
-- [x] Add automated tests submitting requests to the Link model REST API endpoints, including filters defined on the filter classes
-	- [x] merge both `conftest.py` into one, so that it can be shared between bots test suites (personal_api and core)
-	- [x] GET all from user
-	- [x] Adicionar no requirements.vim, e testar no personal_api: <https://github.com/gaogaotiantian/watchpoints>.
-	- [x] GET with filter (see TODO marks on test `test_links_get_with_filter_endpoint_for_existing_user`)
-		Additional references:
-		- <https://stackoverflow.com/questions/42582859/filtering-using-viewsets-in-django-rest-framework>
-		- <https://sunscrapers.com/blog/the-ultimate-tutorial-for-django-rest-framework-functional-endpoints-and-api-nesting-part-6/>
-		- <https://github.com/sunscrapers/restonomicon>
-		- <https://www.reddit.com/r/django/comments/93jhtp/add_custom_action_to_drf_modelviewset/>
-	- [x] POST
-	- [x] PUT
-	- [x] DELETE all (should not work)
-		- [x] PATCH
-		- [x] DELETE (single)
-- [x] Run the full test suite again and fix tests.
-- [x] Run style-check and lint and make the needed fixes
-- [x] change user.id type to UUID (today it is an integer)
-- [x] fix tests failing due to new generated user database (after finished, make sure that creating another database the previsibility is kept)
-- [x] drf-yasg broke (no more redocs) - this is due to the static files
-	- [x] Create a Makefile command to generate the static files directory
-	- [x] Create a docker-compose nginx container binded to local port 5000 to serve the static files directory
-	- [x] Access localhost:8000 through the browser
-	- [x] Update this project's README with the new commands above
-
-- [ ] FUTURE (open separate issues):
-	- [ ] Change from drf-yasg to <https://github.com/tfranzel/drf-spectacular> (it supports simplejwt between other features)
-	- [ ] Test drf-spectacular with swagger - maybe I will need to configure swagger (drf-spectacular) for the Link model
-	- [ ] test the app container with docker and docker-compose
-	- [ ] on a VM: test the app container with podman, podman-compose and buildah
-
----
+- Add the URL model on models.py
+- Add a custom user model
+- Add the user as a foreign key to the URL model
+- Write tests to validate api token generation and refresh
+- Create a manager to `models.Link` so that it can get model instances from a given user.
+- Implement the business methods on `core.services.urls`
+- Add manage command to populate the database with test data
+- Move code from `personal_api/views.py` to `personal_api/core/views.py`, and the corresponding tests.
+- Add view, serializer and filter classes to the Link model
+- Rename the Url model to Link
+- Create a function to set name from a link
+- Create a management command to populate links from a CSV, leveraging pandas to do that.
+- Make django not return the default HTML page on errors - create custom middleware to return JSON on exceptions
+- Finish implementation of the Link ModelViewSet
+- Add automated tests submitting requests to the Link model REST API endpoints, including filters defined on the filter classes
+	- merge both `conftest.py` into one, so that it can be shared between bots test suites (personal_api and core)
+	- GET all from user
+	- GET with filter
+	- POST
+	- PUT
+	- DELETE all (should not work)
+	- PATCH
+	- DELETE (single)
+- change user.id type to UUID (today it is an integer)
 
