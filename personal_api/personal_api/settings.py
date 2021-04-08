@@ -1,10 +1,13 @@
 import logging.config
 import os
 
-from decouple import config
 from django.utils.log import DEFAULT_LOGGING
 
+from decouple import config
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+PROJECT_ROOT = os.path.dirname(BASE_DIR)
 
 SECRET_KEY = config('SECRET_KEY')
 
@@ -36,6 +39,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'personal_api.middlewares.ExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'personal_api.urls'
@@ -95,6 +99,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTH_USER_MODEL = 'core.CustomUser'
+
 CORS_ALLOW_METHODS = (
     # 'DELETE',
     # 'GET',
@@ -117,8 +123,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 # STATIC_URL = 'https://domain.app/static/'
-STATIC_URL = '/static/'
+STATIC_URL = 'http://localhost:5000/'
 
 # Logging configuration, as JSON, to stdout.
 LOG_LEVEL = config('LOG_LEVEL', default='INFO')
@@ -173,6 +180,9 @@ REST_FRAMEWORK = {
         'rest_framework.pagination' '.LimitOffsetPagination'
     ),
     'PAGE_SIZE': 30,
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
 }
 
 # celery

@@ -1,35 +1,48 @@
+import logging
 import uuid
 
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
 from django.db import models
+
 from django_extensions.db.fields import AutoSlugField
 
+from core.managers import LinkManager
+from core.services.links import get_domain
 
-class SampleModel(models.Model):
-    """
-    The model below illustrated some of our model best practices, like:
+logger = logging.getLogger(__name__)
 
-    - UUID fields as ID
-    - How to use slug fields
-    - How to deal with a field that has predefined values.
 
-    Since this model is only for guidance, it must be removed as soon as
-    possible .  No migration was created with this model.
-    """
-
-    COMPLEXITY_CHOICES = (('s', 'Simple'), ('c', 'Complex'))
-
+class CustomUser(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
-    name = models.CharField(unique=True, max_length=150)
+    def __str__(self):
+        return self.username
 
+
+class Link(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    name = models.CharField(unique=True, max_length=150, null=True, blank=True)
     slug = AutoSlugField(populate_from='name', overwrite=True)
-
-    complexity = models.CharField(
-        choices=COMPLEXITY_CHOICES, default='s', max_length=1
+    original_link = models.URLField(unique=True)
+    sanitized_link = models.URLField(unique=True, null=True, blank=True)
+    shortened_hash = models.CharField(
+        unique=True, max_length=50, null=True, blank=True
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # Customize the default manager to the one having the custom filters
+    objects = LinkManager()
+
     def __str__(self):
         return str(self.slug)
+
+    @property
+    def domain(self):
+        return get_domain(self.sanitized_link)

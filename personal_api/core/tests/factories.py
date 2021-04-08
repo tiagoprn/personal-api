@@ -2,9 +2,14 @@
 
 import factory
 
-from core.models import SampleModel
+from core.models import CustomUser, Link
 
 
-class SampleModelFactory(factory.django.DjangoModelFactory):
+class UserModelFactory(factory.django.DjangoModelFactory):
     class Meta:
-        model = SampleModel
+        model = CustomUser
+
+
+class LinkModelFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = Link

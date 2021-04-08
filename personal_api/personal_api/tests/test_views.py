@@ -21,6 +21,7 @@ class TestHealthCheckViews:
         response.render()
 
         assert 'live' in response.data.keys()
+        assert 'name' in response.data.keys()
         assert 'version' in response.data.keys()
         assert response.data['version'] == '1.0'
 
@@ -35,5 +36,6 @@ class TestHealthCheckViews:
         response.render()
 
         assert 'ready' in response.data.keys()
+        assert 'app_name' in response.data.keys()
         assert 'app_version' in response.data.keys()
         assert response.data['app_version'] == '1.0'

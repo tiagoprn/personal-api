@@ -34,13 +34,17 @@ $ make superuser
 
 ### Documentation
 
-You can access the API documentation by running the application server:
+You can access the API documentation by
+
+1) running the application server:
 
 ```
 $ make runserver-dev
 ```
 
-and accessing:
+This will generate static files, raise an nginx container to serve the frontend static files, and start the local app server.
+
+To interact the API, you can use redoc or swagger. They are available at:
 
 - [redoc](<http://localhost:8000/>)
 - [swagger](<http://localhost:8000/swagger/>)

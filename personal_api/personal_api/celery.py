@@ -1,9 +1,3 @@
-"""
-IMPORTANT: Since we use Amazon SQS as our broker, it does not
-           have support to be a result backend. It is stated on
-           its' documentation.
-"""
-
 import os
 
 from celery import Celery
@@ -19,7 +13,6 @@ app.autodiscover_tasks()
 
 app.conf.task_serializer = 'json'
 
-# TODO: since using SQS, probably tasks functions are not allowed to return
 app.conf.result_serializer = 'json'
 
 app.conf.accept_content = ['json']

@@ -8,6 +8,7 @@ from random import randint
 import django
 from django.conf import settings
 from django.db.migrations.recorder import MigrationRecorder
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -19,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 @lru_cache(maxsize=None)
 def get_app_version():
-    root_path = str(Path().absolute().parent)
+    root_path = str(Path().absolute())
     with open(os.path.join(root_path, 'VERSION'), 'r') as version_file:
         return version_file.read().replace('\n', '')
 
@@ -92,6 +93,7 @@ class HealthcheckLiveness(APIView):
         response_dict = {
             'live': live,
             'broker': broker,
+            'name': 'personal-api',
             'version': get_app_version(),
             'timestamp': timestamp,
             'timezone': timezone,
@@ -117,6 +119,7 @@ class HealthcheckLiveness(APIView):
 
         response_dict = {
             'live': live,
+            'name': 'personal-api',
             'version': get_app_version(),
             'last_migration': migration_name,
             'timestamp': timestamp,
@@ -146,6 +149,7 @@ class HealthcheckReadiness(APIView):
         app_type += f' {django.get_version()}'
         response_dict = {
             'ready': 'OK',
+            'app_name': 'personal-api',
             'app_version': get_app_version(),
             'app_type': app_type,
         }
