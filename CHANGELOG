@@ -1,27 +1,3 @@
-# URL Shortener API
+# Change API Documentation
 
-- Add the URL model on models.py
-- Add a custom user model
-- Add the user as a foreign key to the URL model
-- Write tests to validate api token generation and refresh
-- Create a manager to `models.Link` so that it can get model instances from a given user.
-- Implement the business methods on `core.services.urls`
-- Add manage command to populate the database with test data
-- Move code from `personal_api/views.py` to `personal_api/core/views.py`, and the corresponding tests.
-- Add view, serializer and filter classes to the Link model
-- Rename the Url model to Link
-- Create a function to set name from a link
-- Create a management command to populate links from a CSV, leveraging pandas to do that.
-- Make django not return the default HTML page on errors - create custom middleware to return JSON on exceptions
-- Finish implementation of the Link ModelViewSet
-- Add automated tests submitting requests to the Link model REST API endpoints, including filters defined on the filter classes
-	- merge both `conftest.py` into one, so that it can be shared between bots test suites (personal_api and core)
-	- GET all from user
-	- GET with filter
-	- POST
-	- PUT
-	- DELETE all (should not work)
-	- PATCH
-	- DELETE (single)
-- change user.id type to UUID (today it is an integer)
-
+- Change from drf-yasg to [drf-spectacular](https://github.com/tfranzel/drf-spectacular).
